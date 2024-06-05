@@ -6,13 +6,19 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   devtool: 'inline-source-map',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    hot: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: './src/styles.css', to: 'styles/styles.css' }, // Copy main.css to dist/styles
+        { from: './src/styles.css', to: 'styles/styles.css' },
       ],
     }),
   ],
