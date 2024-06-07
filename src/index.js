@@ -1,5 +1,5 @@
 import './styles.css';
-import { test } from './modules/test';
+import { createUI } from './modules/ui';
 
 console.log('hellosadasd')
-test();
+createUI();
