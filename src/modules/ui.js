@@ -21,6 +21,7 @@ function renderSidebar() {
     const completedImg = document.querySelector('.completedImg');
     const projectImg = document.querySelector('.projectImg');
     const addImg = document.querySelector('.addImg');
+    const logoImg = document.querySelector('.logoImg');
 
     sidebarImg.src = sidebarImgs;
     todayImg.src = todayImgs;
@@ -30,4 +31,5 @@ function renderSidebar() {
     completedImg.src = completedImgs;
     projectImg.src = projectImgs;
     addImg.src = addImgs;
+    logoImg.src = logoImgs;
 }
