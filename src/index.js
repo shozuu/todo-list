@@ -1,5 +1,4 @@
 import './styles.css';
-import { createUI } from './modules/ui';
+import { renderUI } from './modules/ui';
 
-console.log('hellosadasd')
-createUI();
+renderUI();

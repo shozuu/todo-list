@@ -108,7 +108,6 @@ img {
 }
 
 .task-view {
-    /* border: solid purple; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -145,6 +144,7 @@ img {
 .name,
 .task-view {
     color: var(--secondary-text);
+    font-size: var(--font-size-base);
 }
 
 .add-task {
