@@ -70,7 +70,8 @@ img {
 }
 
 .nav-tasks,
-.nav-projects {
+.nav-projects,
+.modal-group {
     padding: 10px;
     display: flex;
     align-items: center;
@@ -156,4 +157,67 @@ img {
 
 .add-task:hover {
     background-color: var(--secondary-color);
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.542);
+}
+
+.add-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 30px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+}
+
+.group textarea {
+    background-color: var(--primary-color);
+    font-family: inherit;
+    color: var(--secondary-text);
+    font-size: var(--font-size-base);
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+.group textarea:nth-child(1) {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.group textarea:nth-child(2) {
+    height: 100px;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-group {
+    padding: 10px 0;
+}
+
+.task-priority,
+.due-date,
+.projects {
+    margin-left: auto;
 }
