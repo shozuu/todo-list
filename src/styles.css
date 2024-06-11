@@ -148,14 +148,16 @@ img {
     font-size: var(--font-size-base);
 }
 
-.add-task {
+.add-task,
+.addModal-button {
     padding: 8px 40px;
     border: 2px solid var(--secondary-color);;
     border-radius: 10px;
     cursor: pointer;
 }
 
-.add-task:hover {
+.add-task:hover,
+.addModal-button:hover {
     background-color: var(--secondary-color);
 }
 
@@ -178,7 +180,7 @@ img {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     text-align: center;
 }
 
@@ -220,4 +222,8 @@ img {
 .due-date,
 .projects {
     margin-left: auto;
+}
+
+.hidden {
+    display: none;
 }

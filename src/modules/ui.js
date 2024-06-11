@@ -10,39 +10,10 @@ import addImgs from '../assets/add.svg';
 import priorityImgs from '../assets/priority.svg';
 
 export function renderUI() {
-    const navTasks = document.querySelectorAll('.nav-tasks');
-    const addTask = document.querySelector('.add-task');
-    
     renderSidebar();
+    createAddPopup();
     renderToday();
-
-    navTasks.forEach(navTask => {
-        navTask.addEventListener('click', (e) => {
-            const taskIndex = Array.from(navTasks).indexOf(e.currentTarget);
-
-            switch (taskIndex) {
-                case 0:
-                    renderToday();
-                    break;
-                case 1:
-                    renderTommorrow();
-                    break;
-                case 2:
-                    renderWeek();
-                    break;
-                case 3:
-                    renderPlanned();
-                    break;
-                case 4:
-                    renderCompleted();
-                    break;
-                default:
-                    break;
-            }
-        })
-    });
-
-    addTask.addEventListener('click', createAddPopup);
+    listenEvents();
 }
 
 function renderSidebar() {
@@ -66,12 +37,13 @@ function renderSidebar() {
     addImg.src = addImgs;
     logoImg.src = logoImgs;
 
-    //need functionality to retrieve/show pending task 
+    //need function call to retrieve/show pending task 
     //need functionality to create and show projects dynamically
 }
 
 function renderToday() {
     setRender('Today', 0, 0)
+    //function calls to retrieve tasks under today
 }
 
 function renderTommorrow() {
@@ -103,9 +75,11 @@ function setRender(sched, pendingCount, completedTask) {
 function createAddPopup() { //can be a function that just takes parameters like setRender
     const modalBackdrop = document.createElement('div');
     modalBackdrop.classList.add('modal-backdrop');
+    modalBackdrop.classList.add('hidden');
 
     const addModal = document.createElement('div'); //h1, group, config group
     addModal.classList.add('add-modal');
+    addModal.classList.add('hidden');
 
     const h1 = document.createElement('h2');
     h1.textContent = 'Add Task';
@@ -184,13 +158,60 @@ function createAddPopup() { //can be a function that just takes parameters like 
     configGroup.appendChild(priorityGroup);
     configGroup.appendChild(dueGroup);
     configGroup.appendChild(projectGroup);
+    
+    const addModalButton = document.createElement('div');
+    addModalButton.classList.add('addModal-button');
+    addModalButton.textContent = 'Add Task';
 
     addModal.appendChild(h1);
     addModal.appendChild(group);
     addModal.appendChild(configGroup);
+    addModal.appendChild(addModalButton);
 
 
     document.body.appendChild(modalBackdrop);
     document.body.appendChild(addModal);
-    // document.body.appendChild(addButton);
+}
+
+function listenEvents() {
+    const navTasks = document.querySelectorAll('.nav-tasks');
+    const addTask = document.querySelector('.add-task');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const addModal = document.querySelector('.add-modal');
+
+    navTasks.forEach(navTask => {
+        navTask.addEventListener('click', (e) => {
+            const taskIndex = Array.from(navTasks).indexOf(e.currentTarget);
+
+            switch (taskIndex) {
+                case 0:
+                    renderToday();
+                    break;
+                case 1:
+                    renderTommorrow();
+                    break;
+                case 2:
+                    renderWeek();
+                    break;
+                case 3:
+                    renderPlanned();
+                    break;
+                case 4:
+                    renderCompleted();
+                    break;
+                default:
+                    break;
+            }
+        })
+    });
+
+    addTask.addEventListener('click', () => {
+        modalBackdrop.classList.remove('hidden');
+        addModal.classList.remove('hidden');
+
+        modalBackdrop.addEventListener('click', () => {
+            modalBackdrop.classList.add('hidden');
+            addModal.classList.add('hidden');
+        })
+    });
 }
