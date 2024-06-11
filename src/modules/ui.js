@@ -114,6 +114,8 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const taskPriority = document.createElement('div');
     taskPriority.classList.add('task-priority');
     taskPriority.textContent = 'Medium Priority';
+
+    // const 
     
     priorityGroup.appendChild(priorityImg);
     priorityGroup.appendChild(name);
@@ -178,6 +180,7 @@ function listenEvents() {
     const addTask = document.querySelector('.add-task');
     const modalBackdrop = document.querySelector('.modal-backdrop');
     const addModal = document.querySelector('.add-modal');
+    const addModalButton = document.querySelector('.addModal-button');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -214,4 +217,23 @@ function listenEvents() {
             addModal.classList.add('hidden');
         })
     });
+
+    addModalButton.addEventListener('click', () => {
+        const taskTitle = document.querySelector('.task-title').value;
+        const taskDesc = document.querySelector('.task-desc').value;
+        const taskPriority = document.querySelector('.task-priority');
+        const taskDue = document.querySelector('.due-date');
+        const taskProject = document.querySelector('.projects');
+    
+        console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject)
+    });
+
+    const modalGroup = document.querySelectorAll('.modal-group');
+
+    modalGroup.forEach(group => {
+        group.addEventListener('click', (e) => {
+            const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
+            console.log(groupIndex)
+        })
+    });    
 }
