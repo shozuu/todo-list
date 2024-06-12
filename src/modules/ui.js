@@ -1,42 +1,14 @@
-import logoImgs from '../assets/logo.svg';
-import sidebarImgs from '../assets/sidebar.svg';
-import todayImgs from '../assets/today.svg';
-import tomImgs from '../assets/tommorrow.svg';
-import weekImgs from '../assets/week.svg';
-import plannedImgs from '../assets/planned.svg';
-import completedImgs from '../assets/completed.svg';
-import projectImgs from '../assets/project.svg';
-import addImgs from '../assets/add.svg';
-import priorityImgs from '../assets/priority.svg';
+import { imgObjects, setImgs } from "./imageHandler.js";
 
 export function renderUI() {
-    renderSidebar();
+    // renderSidebar();
     createAddPopup();
     renderToday();
     listenEvents();
+    setImgs(imgObjects);
 }
 
 function renderSidebar() {
-    const sidebarImg = document.querySelector('.sidebarImg');
-    const todayImg = document.querySelector('.todayImg');
-    const tomImg = document.querySelector('.tomImg');
-    const weekImg = document.querySelector('.weekImg');
-    const plannedImg = document.querySelector('.plannedImg');
-    const completedImg = document.querySelector('.completedImg');
-    const projectImg = document.querySelector('.projectImg');
-    const addImg = document.querySelector('.addImg');
-    const logoImg = document.querySelector('.logoImg');
-
-    sidebarImg.src = sidebarImgs;
-    todayImg.src = todayImgs;
-    tomImg.src = tomImgs;
-    weekImg.src = weekImgs;
-    plannedImg.src = plannedImgs;
-    completedImg.src = completedImgs;
-    projectImg.src = projectImgs;
-    addImg.src = addImgs;
-    logoImg.src = logoImgs;
-
     //need function call to retrieve/show pending task 
     //need functionality to create and show projects dynamically
 }
@@ -105,7 +77,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     priorityGroup.classList.add('modal-group');
 
     const priorityImg = document.createElement('img');
-    priorityImg.src = priorityImgs;
+    priorityImg.classList.add('priorityImg');
 
     const name = document.createElement('div');
     name.classList.add('name');
@@ -114,8 +86,6 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const taskPriority = document.createElement('div');
     taskPriority.classList.add('task-priority');
     taskPriority.textContent = 'Medium Priority';
-
-    // const 
     
     priorityGroup.appendChild(priorityImg);
     priorityGroup.appendChild(name);
@@ -125,7 +95,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     dueGroup.classList.add('modal-group');
 
     const dueImg = document.createElement('img');
-    dueImg.src = plannedImgs;
+    dueImg.classList.add('plannedImg');
 
     const name1 = document.createElement('div');
     name1.classList.add('name');
@@ -143,7 +113,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     projectGroup.classList.add('modal-group');
 
     const projectsImg = document.createElement('img');
-    projectsImg.src = projectImgs;
+    projectsImg.classList.add('projectImg');
 
     const name2 = document.createElement('div');
     name2.classList.add('name');
