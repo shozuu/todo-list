@@ -31,3 +31,7 @@ export function appendElement(parentElement, childElement = []) {
         });
     }
 }
+
+export function setValue(element, value) { //for config options only (???)
+    element.textContent = value;
+}

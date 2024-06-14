@@ -1,4 +1,5 @@
 import { renderToday, renderTommorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
+import { setValue } from "./domManipulation.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
@@ -7,6 +8,9 @@ export function listenEvents() {
     const addModal = document.querySelector('.add-modal');
     const addModalButton = document.querySelector('.addModal-button');
     const modalGroup = document.querySelectorAll('.modal-group');
+    const priorityOptions = document.querySelector('.priority-options');
+    const priorityOption = document.querySelectorAll('.priority-option');
+    const taskPriority = document.querySelectorAll('.task-priority');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -51,6 +55,13 @@ export function listenEvents() {
 
             switch (groupIndex) {
                 case 0:
+                    // priorityOptions.classList.remove('hidden');
+                    // priorityOption.forEach(option => {
+                    //     option.addEventListener('click', () => {
+                    //         // setValue(taskPriority, option.textContent)
+                    //         console.log(taskPriority.textContent)
+                    //     })
+                    // });
                     // setPriority(currentSchedule); 
                     break;
                 case 1:
@@ -68,12 +79,12 @@ export function listenEvents() {
     addModalButton.addEventListener('click', () => {
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
-        const taskPriority = document.querySelector('.task-priority');
+        const taskPriority = document.querySelector('.task-priority').value;
         const taskDue = document.querySelector('.due-date');
         const taskProject = document.querySelector('.projects');
 
         console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
 
-        
+
     });
 }

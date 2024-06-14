@@ -45,7 +45,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const addModal = createElement('div', ['add-modal', 'hidden']);
 
     const h2 = createElement('h2', [], {textContent: 'Add Task'});
-    const form = createElement('form');
+    const form = createElement('form', [], {action: '#'});
     
     const group = createElement('div', ['group']);
     const taskTitle = createElement('textarea', ['task-title'], {placeholder: 'Title', required: ''});
@@ -56,12 +56,15 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const priorityGroup = createElement('div', ['modal-group']);
     const priorityImg = createElement('img', ['priorityImg']);
     const name = createElement('div', ['name'], {textContent: 'Priority'});
-    const taskPriority = createElement('div', ['task-priority'], {textContent: 'Medium Priority'});
+    const taskPriority = createElement('select', ['task-priority']);
+    const priorityOption1 = createElement('option', ['priority-option'], {textContent: 'Low Priority', value: 'Low Priority'});
+    const priorityOption2 = createElement('option', ['priority-option'], {textContent: 'Medium Priority', value: 'Medium Priority'});
+    const priorityOption3 = createElement('option', ['priority-option'], {textContent: 'High Priority', value: 'High Priority'});
 
     const dueGroup = createElement('div', ['modal-group']);
     const dueImg = createElement('img', ['plannedImg']);
     const name1 = createElement('div', ['name'], {textContent: 'Due Date'});
-    const temp = createElement('div', ['due-date'], {textContent: '6/10/2024'});
+    const temp = createElement('date', ['due-date'], {textContent: '6/10/2024'});
 
     const projectGroup = createElement('div', ['modal-group']);
     const projectsImg = createElement('img', ['projectImg']);
@@ -71,6 +74,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const addModalButton = createElement('button', ['addModal-button'], {textContent: 'Add Task'});
     
     appendElement(group, [taskTitle, taskDesc]);
+    appendElement(taskPriority, [priorityOption1, priorityOption2, priorityOption3]);
     appendElement(priorityGroup, [priorityImg, name, taskPriority]);
     appendElement(dueGroup, [dueImg, name1, temp]);
     appendElement(projectGroup, [projectsImg, name2, temp1]);
@@ -79,3 +83,6 @@ function createAddPopup() { //can be a function that just takes parameters like 
     appendElement(addModal, [h2, form]);
     appendElement(document.body, [modalBackdrop, addModal]);
 }
+
+//avoid using text content to set the value
+//instead, use value to set text content

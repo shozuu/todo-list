@@ -1,6 +1,7 @@
 :root {
     --primary-color: #212121;
     --secondary-color: #2F2F2F;
+    --tertiary-color: #494949;
     --sidebar-color: #171717;
     --primary-text: #B4B4B4;
     --secondary-text: #ECECEC;
@@ -77,6 +78,7 @@ img {
     align-items: center;
     gap: 20px;
     font-size: var(--font-size-base);
+    cursor: pointer;
 }
 
 .count {
@@ -234,6 +236,10 @@ form {
     margin-left: auto;
 }
 
-.hidden {
+.hidden { /* always last */
     display: none;
+}
+
+.task-priority select {
+    text-align: right;
 }
