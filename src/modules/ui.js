@@ -45,10 +45,11 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const addModal = createElement('div', ['add-modal', 'hidden']);
 
     const h2 = createElement('h2', [], {textContent: 'Add Task'});
+    const form = createElement('form');
     
     const group = createElement('div', ['group']);
-    const taskTitle = createElement('textarea', ['task-title'], {placeholder: 'Title'});
-    const taskDesc = createElement('textarea', ['task-desc'], {placeholder: 'Description'});
+    const taskTitle = createElement('textarea', ['task-title'], {placeholder: 'Title', required: ''});
+    const taskDesc = createElement('textarea', ['task-desc'], {placeholder: 'Description', required: ''});
 
     const configGroup = createElement('div', ['config-group']);
 
@@ -67,13 +68,14 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const name2 = createElement('div', ['name'], {textContent: 'Projects'});
     const temp1 = createElement('div', ['projects'], {textContent: 'Default'});
 
-    const addModalButton = createElement('div', ['addModal-button'], {textContent: 'Add Task'});
+    const addModalButton = createElement('button', ['addModal-button'], {textContent: 'Add Task'});
     
     appendElement(group, [taskTitle, taskDesc]);
     appendElement(priorityGroup, [priorityImg, name, taskPriority]);
     appendElement(dueGroup, [dueImg, name1, temp]);
     appendElement(projectGroup, [projectsImg, name2, temp1]);
     appendElement(configGroup, [priorityGroup, dueGroup, projectGroup]);
-    appendElement(addModal, [h2, group, configGroup, addModalButton]);
+    appendElement(form, [group, configGroup, addModalButton]);
+    appendElement(addModal, [h2, form]);
     appendElement(document.body, [modalBackdrop, addModal]);
 }

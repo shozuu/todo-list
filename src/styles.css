@@ -150,6 +150,10 @@ img {
 
 .add-task,
 .addModal-button {
+    font-family: inherit;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-text);
     padding: 8px 40px;
     border: 2px solid var(--secondary-color);;
     border-radius: 10px;
@@ -182,6 +186,12 @@ img {
     flex-direction: column;
     gap: 30px;
     text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .group {

@@ -6,6 +6,7 @@ export function listenEvents() {
     const modalBackdrop = document.querySelector('.modal-backdrop');
     const addModal = document.querySelector('.add-modal');
     const addModalButton = document.querySelector('.addModal-button');
+    const modalGroup = document.querySelectorAll('.modal-group');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -43,6 +44,27 @@ export function listenEvents() {
         });
     });
 
+    modalGroup.forEach(group => {
+        group.addEventListener('click', (e) => {
+            const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
+            console.log(groupIndex);
+
+            switch (groupIndex) {
+                case 0:
+                    // setPriority(currentSchedule); 
+                    break;
+                case 1:
+                    // setDueDate(currentSchedule);
+                    break;
+                case 2:
+                    // setProject(currentSchedule);
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
+
     addModalButton.addEventListener('click', () => {
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
@@ -51,14 +73,7 @@ export function listenEvents() {
         const taskProject = document.querySelector('.projects');
 
         console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
-    });
 
-    const modalGroup = document.querySelectorAll('.modal-group');
-
-    modalGroup.forEach(group => {
-        group.addEventListener('click', (e) => {
-            const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
-            console.log(groupIndex);
-        });
+        
     });
 }
