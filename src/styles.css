@@ -78,7 +78,7 @@ img {
     align-items: center;
     gap: 20px;
     font-size: var(--font-size-base);
-    cursor: pointer;
+    user-select: none;
 }
 
 .count {
@@ -240,6 +240,16 @@ form {
     display: none;
 }
 
-.task-priority select {
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    font-size: var(--font-size-base);
     text-align: right;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-text);
+    border: none;
+    cursor: pointer;
 }

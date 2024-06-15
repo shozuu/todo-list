@@ -6,11 +6,11 @@ export function listenEvents() {
     const addTask = document.querySelector('.add-task');
     const modalBackdrop = document.querySelector('.modal-backdrop');
     const addModal = document.querySelector('.add-modal');
-    const addModalButton = document.querySelector('.addModal-button');
-    const modalGroup = document.querySelectorAll('.modal-group');
-    const priorityOptions = document.querySelector('.priority-options');
-    const priorityOption = document.querySelectorAll('.priority-option');
-    const taskPriority = document.querySelectorAll('.task-priority');
+    const form = document.querySelector('.form');
+    // const modalGroup = document.querySelectorAll('.modal-group');
+    // const priorityOptions = document.querySelector('.priority-options');
+    // const priorityOption = document.querySelectorAll('.priority-option');
+    // const taskPriority = document.querySelectorAll('.task-priority');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -48,43 +48,46 @@ export function listenEvents() {
         });
     });
 
-    modalGroup.forEach(group => {
-        group.addEventListener('click', (e) => {
-            const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
-            console.log(groupIndex);
+    // modalGroup.forEach(group => {
+    //     group.addEventListener('click', (e) => {
+    //         const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
+    //         console.log(groupIndex);
 
-            switch (groupIndex) {
-                case 0:
-                    // priorityOptions.classList.remove('hidden');
-                    // priorityOption.forEach(option => {
-                    //     option.addEventListener('click', () => {
-                    //         // setValue(taskPriority, option.textContent)
-                    //         console.log(taskPriority.textContent)
-                    //     })
-                    // });
-                    // setPriority(currentSchedule); 
-                    break;
-                case 1:
-                    // setDueDate(currentSchedule);
-                    break;
-                case 2:
-                    // setProject(currentSchedule);
-                    break;
-                default:
-                    break;
-            }
-        });
-    });
+    //         switch (groupIndex) {
+    //             case 0:
+    //                 // priorityOptions.classList.remove('hidden');
+    //                 // priorityOption.forEach(option => {
+    //                 //     option.addEventListener('click', () => {
+    //                 //         // setValue(taskPriority, option.textContent)
+    //                 //         console.log(taskPriority.textContent)
+    //                 //     })
+    //                 // });
+    //                 // setPriority(currentSchedule); 
+    //                 break;
+    //             case 1:
+    //                 // setDueDate(currentSchedule);
+    //                 break;
+    //             case 2:
+    //                 // setProject(currentSchedule);
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     });
+    // });
 
-    addModalButton.addEventListener('click', () => {
+    form.addEventListener('submit', (e) => {
+        if (!form.checkValidity()) {
+            e.preventDefault();
+            return;
+        }
+
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
         const taskPriority = document.querySelector('.task-priority').value;
-        const taskDue = document.querySelector('.due-date');
+        const taskDue = document.querySelector('.due-date').value;
         const taskProject = document.querySelector('.projects');
 
         console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
-
-
     });
 }

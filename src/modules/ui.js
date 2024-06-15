@@ -45,7 +45,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const addModal = createElement('div', ['add-modal', 'hidden']);
 
     const h2 = createElement('h2', [], {textContent: 'Add Task'});
-    const form = createElement('form', [], {action: '#'});
+    const form = createElement('form', ['form'], {action: '#'});
     
     const group = createElement('div', ['group']);
     const taskTitle = createElement('textarea', ['task-title'], {placeholder: 'Title', required: ''});
@@ -56,7 +56,8 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const priorityGroup = createElement('div', ['modal-group']);
     const priorityImg = createElement('img', ['priorityImg']);
     const name = createElement('div', ['name'], {textContent: 'Priority'});
-    const taskPriority = createElement('select', ['task-priority']);
+    const taskPriority = createElement('select', ['task-priority'], {required: ''});
+    const priorityOption0 = createElement('option', ['priority-option'], {textContent: 'No Priority', value: '', selected: '', disabled: '', hidden: ''});
     const priorityOption1 = createElement('option', ['priority-option'], {textContent: 'Low Priority', value: 'Low Priority'});
     const priorityOption2 = createElement('option', ['priority-option'], {textContent: 'Medium Priority', value: 'Medium Priority'});
     const priorityOption3 = createElement('option', ['priority-option'], {textContent: 'High Priority', value: 'High Priority'});
@@ -71,10 +72,10 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const name2 = createElement('div', ['name'], {textContent: 'Projects'});
     const temp1 = createElement('div', ['projects'], {textContent: 'Default'});
 
-    const addModalButton = createElement('button', ['addModal-button'], {textContent: 'Add Task'});
+    const addModalButton = createElement('button', ['addModal-button'], {type: 'submit', textContent: 'Add Task'});
     
     appendElement(group, [taskTitle, taskDesc]);
-    appendElement(taskPriority, [priorityOption1, priorityOption2, priorityOption3]);
+    appendElement(taskPriority, [priorityOption0, priorityOption1, priorityOption2, priorityOption3]);
     appendElement(priorityGroup, [priorityImg, name, taskPriority]);
     appendElement(dueGroup, [dueImg, name1, temp]);
     appendElement(projectGroup, [projectsImg, name2, temp1]);
@@ -86,3 +87,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
 
 //avoid using text content to set the value
 //instead, use value to set text content
+
+
+//retain the placeholder to dynamically change. 
+//whenever user clicks the placeholder, it activates the date picker hidden
