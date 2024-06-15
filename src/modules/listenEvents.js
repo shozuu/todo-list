@@ -11,6 +11,8 @@ export function listenEvents() {
     // const priorityOptions = document.querySelector('.priority-options');
     // const priorityOption = document.querySelectorAll('.priority-option');
     // const taskPriority = document.querySelectorAll('.task-priority');
+    const dueDate = document.querySelector('.due-date');
+    const datePicker = document.querySelector('.date-picker');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -90,4 +92,9 @@ export function listenEvents() {
 
         console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
     });
+
+    dueDate.addEventListener('click', () => {
+        console.log('test')
+        datePicker.showPicker();
+    })
 }

@@ -234,6 +234,7 @@ form {
 .due-date,
 .projects {
     margin-left: auto;
+    cursor: pointer;
 }
 
 .hidden { /* always last */
@@ -251,5 +252,14 @@ select {
     background-color: var(--primary-color);
     color: var(--secondary-text);
     border: none;
-    cursor: pointer;
+}
+
+.due-date {
+    position: relative;
+}
+
+.date-picker {
+    position: absolute;
+    right: 0;
+    visibility: hidden;
 }
