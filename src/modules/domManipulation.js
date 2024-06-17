@@ -33,6 +33,6 @@ export function appendElement(parentElement, childElement = []) {
 }
 
 export function setDuePlaceholder(value) {
-    const dueDate = document.querySelector('.due-date');
-    dueDate.textContent = value;
+    const placeholder = document.querySelector('.placeholder');
+    placeholder.textContent = value;
 }

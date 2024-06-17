@@ -65,7 +65,8 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const dueGroup = createElement('div', ['modal-group']);
     const dueImg = createElement('img', ['plannedImg']);
     const name1 = createElement('div', ['name'], {textContent: 'Due Date'});
-    const temp = createElement('div', ['due-date'], {textContent: '6/10/2024'});
+    const temp = createElement('div', ['due-date']);
+    const tempPlaceholder = createElement('div', ['placeholder'], {textContent: '6/10/2024'})
     const datePicker = createElement('input', ['date-picker'], {type: 'date', min: '2024-06-15'});
 
     const projectGroup = createElement('div', ['modal-group']);
@@ -78,7 +79,7 @@ function createAddPopup() { //can be a function that just takes parameters like 
     appendElement(group, [taskTitle, taskDesc]);
     appendElement(taskPriority, [priorityOption0, priorityOption1, priorityOption2, priorityOption3]);
     appendElement(priorityGroup, [priorityImg, name, taskPriority]);
-    appendElement(temp, [datePicker]);
+    appendElement(temp, [tempPlaceholder, datePicker]);
     appendElement(dueGroup, [dueImg, name1, temp]);
     appendElement(projectGroup, [projectsImg, name2, temp1]);
     appendElement(configGroup, [priorityGroup, dueGroup, projectGroup]);
