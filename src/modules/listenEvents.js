@@ -1,5 +1,6 @@
 import { renderToday, renderTommorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
 import { setDuePlaceholder } from "./domManipulation.js";
+import { dateFormatter } from "./dateHandler.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
@@ -65,6 +66,7 @@ export function listenEvents() {
         datePicker.showPicker();
         datePicker.addEventListener('change', () => {
             setDuePlaceholder(datePicker.value);
+            dateFormatter(datePicker.value);
         })
     })
 }

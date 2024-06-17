@@ -250,7 +250,7 @@ select {
     text-align: right;
     outline: none;
     background-color: var(--primary-color);
-    color: var(--secondary-text);
+    color: var(--primary-text);
     border: none;
 }
 
