@@ -1,5 +1,5 @@
 import { renderToday, renderTommorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
-import { setValue } from "./domManipulation.js";
+import { setDuePlaceholder } from "./domManipulation.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
@@ -7,10 +7,6 @@ export function listenEvents() {
     const modalBackdrop = document.querySelector('.modal-backdrop');
     const addModal = document.querySelector('.add-modal');
     const form = document.querySelector('.form');
-    // const modalGroup = document.querySelectorAll('.modal-group');
-    // const priorityOptions = document.querySelector('.priority-options');
-    // const priorityOption = document.querySelectorAll('.priority-option');
-    // const taskPriority = document.querySelectorAll('.task-priority');
     const dueDate = document.querySelector('.due-date');
     const datePicker = document.querySelector('.date-picker');
 
@@ -50,34 +46,6 @@ export function listenEvents() {
         });
     });
 
-    // modalGroup.forEach(group => {
-    //     group.addEventListener('click', (e) => {
-    //         const groupIndex = Array.from(modalGroup).indexOf(e.currentTarget);
-    //         console.log(groupIndex);
-
-    //         switch (groupIndex) {
-    //             case 0:
-    //                 // priorityOptions.classList.remove('hidden');
-    //                 // priorityOption.forEach(option => {
-    //                 //     option.addEventListener('click', () => {
-    //                 //         // setValue(taskPriority, option.textContent)
-    //                 //         console.log(taskPriority.textContent)
-    //                 //     })
-    //                 // });
-    //                 // setPriority(currentSchedule); 
-    //                 break;
-    //             case 1:
-    //                 // setDueDate(currentSchedule);
-    //                 break;
-    //             case 2:
-    //                 // setProject(currentSchedule);
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     });
-    // });
-
     form.addEventListener('submit', (e) => {
         if (!form.checkValidity()) {
             e.preventDefault();
@@ -87,14 +55,16 @@ export function listenEvents() {
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
         const taskPriority = document.querySelector('.task-priority').value;
-        const taskDue = document.querySelector('.due-date').value;
+        const taskDue = document.querySelector('.date-picker').value;
         const taskProject = document.querySelector('.projects');
 
         console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
     });
 
     dueDate.addEventListener('click', () => {
-        console.log('test')
         datePicker.showPicker();
+        datePicker.addEventListener('change', () => {
+            setDuePlaceholder(datePicker.value);
+        })
     })
 }

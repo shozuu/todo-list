@@ -32,6 +32,7 @@ export function appendElement(parentElement, childElement = []) {
     }
 }
 
-export function setValue(element, value) { //for config options only (???)
-    element.textContent = value;
+export function setDuePlaceholder(value) {
+    const dueDate = document.querySelector('.due-date');
+    dueDate.textContent = value;
 }
