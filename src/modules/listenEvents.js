@@ -1,5 +1,5 @@
-import { renderToday, renderTommorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
-import { setDuePlaceholder } from "./domManipulation.js";
+import { renderToday, renderTomorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
+import { setDefault, setDuePlaceholder, setTomorrow } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
 
 export function listenEvents() {
@@ -18,15 +18,19 @@ export function listenEvents() {
             switch (taskIndex) {
                 case 0:
                     renderToday();
+                    setDefault();
                     break;
                 case 1:
-                    renderTommorrow();
+                    renderTomorrow();
+                    setTomorrow();
                     break;
                 case 2:
                     renderWeek();
+                    setDefault();
                     break;
                 case 3:
                     renderPlanned();
+                    setDefault();
                     break;
                 case 4:
                     renderCompleted();
@@ -65,8 +69,7 @@ export function listenEvents() {
     dueDate.addEventListener('click', () => {
         datePicker.showPicker();
         datePicker.addEventListener('change', () => {
-            setDuePlaceholder(datePicker.value);
-            dateFormatter(datePicker.value);
+            setDuePlaceholder(dateFormatter(datePicker.value));
         })
     })
 }

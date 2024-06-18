@@ -1,3 +1,5 @@
+import { dateFormatter, getToday, getTom, getMin } from "./dateHandler";
+
 export function createElement(elementType, elementClass = [], elementAttribute = {}) {
     const element = document.createElement(elementType);
 
@@ -35,4 +37,26 @@ export function appendElement(parentElement, childElement = []) {
 export function setDuePlaceholder(value) {
     const placeholder = document.querySelector('.placeholder');
     placeholder.textContent = value;
+}
+
+export function setRender(sched, pendingCount, completedTask) {
+    const schedule = document.querySelector('.schedule');
+    const toCompleteCount = document.querySelector('.toComplete');
+    const completedCount = document.querySelector('.completed');
+
+    schedule.textContent = sched;
+    toCompleteCount.textContent = pendingCount;
+    completedCount.textContent = completedTask;
+}
+
+export function setTomorrow() {
+    const datePicker = document.querySelector('.date-picker');
+    datePicker.setAttribute('value', getTom());
+    setDuePlaceholder(dateFormatter(getTom()));
+}
+
+export function setDefault() {
+    const datePicker = document.querySelector('.date-picker');
+    datePicker.setAttribute('value', getMin());
+    setDuePlaceholder(getToday());
 }

@@ -72,6 +72,7 @@ img {
 
 .nav-tasks,
 .nav-projects,
+.add-project,
 .modal-group {
     padding: 10px;
     display: flex;
@@ -90,7 +91,8 @@ img {
 }
 
 .nav-tasks:hover,
-.nav-projects:hover {
+.nav-projects:hover,
+.add-project:hover {
     background-color: var(--primary-color);
     border-radius: 10px;
     cursor: pointer;

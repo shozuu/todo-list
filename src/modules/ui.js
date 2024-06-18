@@ -1,6 +1,7 @@
 import { imgObjects, setImgs } from "./imageHandler.js";
 import { listenEvents } from "./listenEvents.js";
-import { createElement, appendElement } from "./domManipulation.js";
+import { createElement, appendElement, setRender } from "./domManipulation.js";
+import { getToday, getMin } from "./dateHandler.js";
 
 export function renderUI() {
     createAddPopup();
@@ -14,8 +15,8 @@ export function renderToday() {
     //function calls to retrieve tasks under today
 }
 
-export function renderTommorrow() {
-    setRender('Tommorrow', 0, 0)
+export function renderTomorrow() {
+    setRender('Tomorrow', 0, 0)
 }
 
 export function renderWeek() {
@@ -28,16 +29,6 @@ export function renderPlanned() {
 
 export function renderCompleted() {
     setRender('Completed', 0, 0)
-}
-
-function setRender(sched, pendingCount, completedTask) {
-    const schedule = document.querySelector('.schedule');
-    const toCompleteCount = document.querySelector('.toComplete');
-    const completedCount = document.querySelector('.completed');
-
-    schedule.textContent = sched;
-    toCompleteCount.textContent = pendingCount;
-    completedCount.textContent = completedTask;
 }
 
 function createAddPopup() { //can be a function that just takes parameters like setRender
@@ -66,8 +57,8 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const dueImg = createElement('img', ['plannedImg']);
     const name1 = createElement('div', ['name'], {textContent: 'Due Date'});
     const temp = createElement('div', ['due-date']);
-    const tempPlaceholder = createElement('div', ['placeholder'], {textContent: '6/10/2024'})
-    const datePicker = createElement('input', ['date-picker'], {type: 'date', min: '2024-06-15'});
+    const tempPlaceholder = createElement('div', ['placeholder'], {textContent: `${getToday()}`})
+    const datePicker = createElement('input', ['date-picker'], {type: 'date', min: `${getMin()}`, value: `${getMin()}`});
 
     const projectGroup = createElement('div', ['modal-group']);
     const projectsImg = createElement('img', ['projectImg']);
