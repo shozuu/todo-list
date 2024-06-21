@@ -11,7 +11,7 @@ import priorityImg from '../assets/priority.svg';
 
 export const imgObjects = { 
     //property value shorthand
-    //logoImg(name): logoImg(src link)
+    //logoImg(class): logoImg(src link)
     logoImg,
     sidebarImg,
     todayImg,
