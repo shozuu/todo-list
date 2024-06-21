@@ -1,15 +1,14 @@
 import { renderToday, renderTomorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
 import { setDefault, setDuePlaceholder, setTomorrow } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
+import { createProject } from "./projects.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
     const addTask = document.querySelector('.add-task');
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-    const addModal = document.querySelector('.add-modal');
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
-    const datePicker = document.querySelector('.date-picker');
+    const addProject = document.querySelector('.add-project');
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -42,6 +41,9 @@ export function listenEvents() {
     });
 
     addTask.addEventListener('click', () => {
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        const addModal = document.querySelector('.add-modal');
+
         modalBackdrop.classList.remove('hidden');
         addModal.classList.remove('hidden');
 
@@ -67,9 +69,35 @@ export function listenEvents() {
     });
 
     dueDate.addEventListener('click', () => {
+        const datePicker = document.querySelector('.date-picker');
+        
         datePicker.showPicker();
         datePicker.addEventListener('change', () => {
             setDuePlaceholder(dateFormatter(datePicker.value));
+        })
+    })
+
+    addProject.addEventListener('click', () => {
+        const addProjectPopup = document.querySelector('.add-project-popup');
+        const addProjectButton = document.querySelector('.add-project');
+        const addButton = document.querySelector('.add-project-confirm');
+        const cancelButton = document.querySelector('.add-project-cancel');
+        const projectTitle = document.querySelector('.project-title');
+
+        addProjectPopup.classList.remove('hidden');
+        addProjectButton.classList.add('hidden');
+
+        addButton.addEventListener('click', () => {
+            createProject(projectTitle.value);
+            addProjectPopup.classList.add('hidden');
+            addProjectButton.classList.remove('hidden');
+            projectTitle.value = '';
+        })
+
+        cancelButton.addEventListener('click', () => {
+            addProjectPopup.classList.add('hidden');
+            addProjectButton.classList.remove('hidden');
+            projectTitle.value = '';
         })
     })
 }
