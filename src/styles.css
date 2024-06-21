@@ -27,7 +27,7 @@ body {
 .sidebar {
     background-color: var(--sidebar-color);
     min-width: 270px;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .sidebar-group {
@@ -58,7 +58,8 @@ img {
     border-radius: 5px;
 }
 
-.task-group {
+.task-group,
+.project-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -84,6 +85,52 @@ img {
 
 .count {
     margin-left: auto;
+}
+
+.add-project-popup {
+    width: 230px;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.add-project-popup input {
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+.add-project-buttons {
+    font-size: var(--font-size-base);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px 10px;
+    text-align: center;
+}
+
+.add-project-confirm,
+.add-project-cancel {
+    padding: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #28a745;
+}
+
+.add-project-confirm:hover {
+    background-color: #218838;
+}
+
+.add-project-cancel {
+    background-color: #dc3545;
+}
+
+.add-project-cancel:hover {
+    background-color: #c82333;
 }
 
 .addIcon {
