@@ -2,6 +2,7 @@ import { imgObjects, setImgs } from "./imageHandler.js";
 import { listenEvents } from "./listenEvents.js";
 import { createElement, appendElement, setRender } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
+import { getProjects } from "./projects.js";
 
 export function renderUI() {
     createAddPopup();
@@ -31,7 +32,7 @@ export function renderCompleted() {
     setRender('Completed', 0, 0)
 }
 
-function createAddPopup() { //can be a function that just takes parameters like setRender
+export function createAddPopup() {
     const modalBackdrop = createElement('div', ['modal-backdrop', 'hidden']);
     const addModal = createElement('div', ['add-modal', 'hidden']);
 
@@ -63,7 +64,13 @@ function createAddPopup() { //can be a function that just takes parameters like 
     const projectGroup = createElement('div', ['modal-group']);
     const projectsImg = createElement('img', ['projectImg']);
     const name2 = createElement('div', ['name'], {textContent: 'Projects'});
-    const temp1 = createElement('div', ['projects'], {textContent: 'Default'});
+    const projects = createElement('select', ['projects'], {required: ''});
+    
+    Object.keys(getProjects()).forEach(key => {
+        const projectOption = createElement('option', ['project-option'], {textContent: key, value: key});
+
+        appendElement(projects, [projectOption])
+    })
 
     const addModalButton = createElement('button', ['addModal-button'], {type: 'submit', textContent: 'Add Task'});
     
@@ -72,16 +79,9 @@ function createAddPopup() { //can be a function that just takes parameters like 
     appendElement(priorityGroup, [priorityImg, name, taskPriority]);
     appendElement(temp, [tempPlaceholder, datePicker]);
     appendElement(dueGroup, [dueImg, name1, temp]);
-    appendElement(projectGroup, [projectsImg, name2, temp1]);
+    appendElement(projectGroup, [projectsImg, name2, projects]);
     appendElement(configGroup, [priorityGroup, dueGroup, projectGroup]);
     appendElement(form, [group, configGroup, addModalButton]);
     appendElement(addModal, [h2, form]);
     appendElement(document.body, [modalBackdrop, addModal]);
 }
-
-//avoid using text content to set the value
-//instead, use value to set text content
-
-
-//retain the placeholder to dynamically change. 
-//whenever user clicks the placeholder, it activates the date picker hidden
