@@ -1,20 +1,20 @@
 import { renderProjects } from "./domManipulation";
 
-const projects = {
-    Default: {}
-};
-
-export const getProjects = () => projects;
+export const projects = ['Default']
 
 export function createProject(projectTitle) {
     if (!projectTitle) return;
 
-    for (const key in projects) {
-        if (projects.hasOwnProperty(key) && key.toLowerCase() === projectTitle.toLowerCase()) {
+    let flag = false;
+    projects.forEach(project => {
+        if (project.toLowerCase() === projectTitle.toLowerCase()) {
             alert(`${projectTitle} already exists`);
+            flag = true;
             return;
         }
-    }
-    projects[projectTitle] = {};
+    });
+
+    if (flag) return;
+    projects.push(projectTitle);
     renderProjects();
 }

@@ -166,7 +166,7 @@ img {
     gap: 30px;
 }
 
-.schedule {
+.tag {
     color: var(--primary-text);
     font-size: 24px;
     font-weight: 600;

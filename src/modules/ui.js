@@ -2,7 +2,7 @@ import { imgObjects, setImgs } from "./imageHandler.js";
 import { listenEvents } from "./listenEvents.js";
 import { createElement, appendElement, setRender } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
-import { getProjects } from "./projects.js";
+import { projects as projectsArray } from "./projects.js";
 
 export function renderUI() {
     createAddPopup();
@@ -13,7 +13,8 @@ export function renderUI() {
 
 export function renderToday() {
     setRender('Today', 0, 0)
-    //function calls to retrieve tasks under today
+    // setRender(label, pendingCount, completedCount)
+    //function calls to retrieve tasks under the date of today
 }
 
 export function renderTomorrow() {
@@ -66,11 +67,11 @@ export function createAddPopup() {
     const name2 = createElement('div', ['name'], {textContent: 'Projects'});
     const projects = createElement('select', ['projects'], {required: ''});
     
-    Object.keys(getProjects()).forEach(key => {
-        const projectOption = createElement('option', ['project-option'], {textContent: key, value: key});
+    projectsArray.forEach(project => {
+        const projectOption = createElement('option', ['project-option'], {textContent: project, value: project});
 
         appendElement(projects, [projectOption])
-    })
+    });
 
     const addModalButton = createElement('button', ['addModal-button'], {type: 'submit', textContent: 'Add Task'});
     
