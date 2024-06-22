@@ -80,6 +80,17 @@ export function renderProjects() {
         appendElement(navProjects, [projectImg, name, count]);
         projectGroup.insertBefore(navProjects, addProjectPopup);
     });
-
+    updateProjectOptions();
     setImgs(imgObjects);
+}
+
+function updateProjectOptions() {
+    const projects = document.querySelector('.projects');
+    projects.innerHTML = '';
+    
+    Object.keys(getProjects()).forEach(key => {
+        const projectOption = createElement('option', ['project-option'], {textContent: key, value: key});
+
+        appendElement(projects, [projectOption])
+    })
 }
