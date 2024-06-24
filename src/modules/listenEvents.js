@@ -1,8 +1,9 @@
 import { renderToday, renderTomorrow, renderWeek, renderPlanned, renderCompleted } from "./ui.js";
 import { setDefault, setDuePlaceholder, setTomorrow } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
-import { createProject } from "./projects.js";
+import { createProject, projects as projectsArray } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
+import { displayTasks } from "./displayTasks.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
@@ -12,35 +13,14 @@ export function listenEvents() {
     const addProject = document.querySelector('.add-project');
     const modalBackdrop = document.querySelector('.modal-backdrop');
     const addModal = document.querySelector('.add-modal');
+    const navProjects = document.querySelectorAll('.nav-projects');
 
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
+            const tasksNav = ['Today', 'Tomorrow', 'This Week', 'Planned', 'Completed'];
             const taskIndex = Array.from(navTasks).indexOf(e.currentTarget);
-
-            switch (taskIndex) {
-                case 0:
-                    renderToday();
-                    setDefault();
-                    break;
-                case 1:
-                    renderTomorrow();
-                    setTomorrow();
-                    break;
-                case 2:
-                    renderWeek();
-                    setDefault();
-                    break;
-                case 3:
-                    renderPlanned();
-                    setDefault();
-                    break;
-                case 4:
-                    renderCompleted();
-                    break;
-                default:
-                    break;
-            }
+            displayTasks(tasksNav[taskIndex]);
         });
     });
 
@@ -108,4 +88,12 @@ export function listenEvents() {
             projectTitle.value = '';
         })
     })
+
+    navProjects.forEach(project => {
+        project.addEventListener('click', (e) => {
+            const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
+            displayTasks(projectsArray[projectIndex])
+            //pass the name of project, then retrieve all the tasks under it
+        })
+    });
 }
