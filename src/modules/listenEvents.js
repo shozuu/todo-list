@@ -2,6 +2,7 @@ import { renderToday, renderTomorrow, renderWeek, renderPlanned, renderCompleted
 import { setDefault, setDuePlaceholder, setTomorrow } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
 import { createProject } from "./projects.js";
+import { tasks, createTask } from "./tasks.js";
 
 export function listenEvents() {
     const navTasks = document.querySelectorAll('.nav-tasks');
@@ -9,6 +10,9 @@ export function listenEvents() {
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
     const addProject = document.querySelector('.add-project');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const addModal = document.querySelector('.add-modal');
+
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
@@ -41,9 +45,6 @@ export function listenEvents() {
     });
 
     addTask.addEventListener('click', () => {
-        const modalBackdrop = document.querySelector('.modal-backdrop');
-        const addModal = document.querySelector('.add-modal');
-
         modalBackdrop.classList.remove('hidden');
         addModal.classList.remove('hidden');
 
@@ -63,9 +64,16 @@ export function listenEvents() {
         const taskDesc = document.querySelector('.task-desc').value;
         const taskPriority = document.querySelector('.task-priority').value;
         const taskDue = document.querySelector('.date-picker').value;
-        const taskProject = document.querySelector('.projects');
+        const taskProject = document.querySelector('.projects').value;
 
-        console.log(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
+        const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
+        tasks[task.taskTitle] = task;
+        console.log(tasks)
+
+        modalBackdrop.classList.add('hidden');
+        addModal.classList.add('hidden');
+
+        form.reset();
     });
 
     dueDate.addEventListener('click', () => {
