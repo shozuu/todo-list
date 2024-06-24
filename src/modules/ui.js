@@ -3,34 +3,13 @@ import { listenEvents } from "./listenEvents.js";
 import { createElement, appendElement, setRender } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
 import { projects as projectsArray } from "./projects.js";
+import { displayTasks } from "./displayTasks.js";
 
 export function renderUI() {
     createAddPopup();
-    renderToday();
+    displayTasks('Today');
     listenEvents();
     setImgs(imgObjects);
-}
-
-export function renderToday() {
-    setRender('Today', 0, 0)
-    // setRender(label, pendingCount, completedCount)
-    //function calls to retrieve tasks under the date of today
-}
-
-export function renderTomorrow() {
-    setRender('Tomorrow', 0, 0)
-}
-
-export function renderWeek() {
-    setRender('This Week', 0, 0)
-}
-
-export function renderPlanned() {
-    setRender('Planned', 0, 0)
-}
-
-export function renderCompleted() {
-    setRender('Completed', 0, 0)
 }
 
 export function createAddPopup() {

@@ -1,5 +1,6 @@
 import { dateFormatter, getToday, getTom, getMin } from "./dateHandler";
 import { setImgs, imgObjects } from "./imageHandler";
+import { listenEvents } from "./listenEvents";
 import { projects as projectsArray } from "./projects";
 
 export function createElement(elementType, elementClass = [], elementAttribute = {}) {
@@ -83,10 +84,10 @@ export function renderProjects() { //for sidebar display
 
     updateProjectOptions();
     setImgs(imgObjects);
-    //reactivate event listen
+    listenEvents();
 }
 
-function updateProjectOptions() {
+function updateProjectOptions() { //for select projects
     const projects = document.querySelector('.projects');
     projects.innerHTML = '';
 
@@ -95,10 +96,4 @@ function updateProjectOptions() {
 
         appendElement(projects, [projectOption])
     });
-    
-    // Object.keys(getProjects()).forEach(key => {
-    //     const projectOption = createElement('option', ['project-option'], {textContent: key, value: key});
-
-    //     appendElement(projects, [projectOption])
-    // })
 }
