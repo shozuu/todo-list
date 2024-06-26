@@ -1,6 +1,6 @@
 import { dateFormatter, getToday, getTom, getMin } from "./dateHandler";
 import { setImgs, imgObjects } from "./imageHandler";
-import { listenEvents } from "./listenEvents";
+import { sidebarListener } from "./listenEvents";
 import { projects as projectsArray } from "./projects";
 
 export function createElement(elementType, elementClass = [], elementAttribute = {}) {
@@ -42,17 +42,6 @@ export function setDuePlaceholder(value) {
     placeholder.textContent = value;
 }
 
-export function setRender(label, pendingCount, completedTask) { //will retrieve here infos from the objs?
-    const tag = document.querySelector('.tag');
-    const toCompleteCount = document.querySelector('.toComplete');
-    const completedCount = document.querySelector('.completed');
-
-    tag.textContent = label;
-    tag.value = label;
-    toCompleteCount.textContent = pendingCount;
-    completedCount.textContent = completedTask;
-}
-
 export function setTomorrow() {
     const datePicker = document.querySelector('.date-picker');
     datePicker.setAttribute('value', getTom());
@@ -65,15 +54,16 @@ export function setDefault() {
     setDuePlaceholder(getToday());
 }
 
-export function renderProjects() { //for sidebar display
+export function renderProjects() {
     const projectGroup = document.querySelector('.project-group');
     const addProjectPopup = document.querySelector('.add-project-popup');
     const navProjects = document.querySelectorAll('.nav-projects');
-    navProjects.forEach(projects => {
+
+    navProjects.forEach(projects => { //clears the projectGroup in the sidebar which also removes its eventListeners
         projects.remove();
     });
 
-    projectsArray.forEach(project => {
+    projectsArray.forEach(project => { //create the projectGroup with new added project
         const navProjects = createElement('div', ['nav-projects']);
         const projectImg = createElement('img', ['projectImg'], {src: "", alt: 'Project'});
         const name = createElement('div', ['name'], {textContent: project});
@@ -83,11 +73,17 @@ export function renderProjects() { //for sidebar display
     });
 
     updateProjectOptions();
+
+    //clone, delete, and re attach the cloned navTasks to reset the eventListeners since it increments if not done
+    const clone = cloneNavTasks();
+    clearNavTasks();
+    insertNavTask(clone);
+
+    sidebarListener();
     setImgs(imgObjects);
-    listenEvents();
 }
 
-function updateProjectOptions() { //for select projects
+function updateProjectOptions() { //for projects in the add modal
     const projects = document.querySelector('.projects');
     projects.innerHTML = '';
 
@@ -96,4 +92,22 @@ function updateProjectOptions() { //for select projects
 
         appendElement(projects, [projectOption])
     });
+}
+
+function cloneNavTasks() {
+    const taskGroup = document.querySelector('.task-group');
+    return taskGroup.cloneNode(true);
+}
+
+function clearNavTasks() {
+    const taskGroup = document.querySelector('.task-group');
+    taskGroup.innerHTML = '';
+    taskGroup.remove();
+}
+
+function insertNavTask(clone) {
+    const sidebarGroup = document.querySelector('.sidebar-group');
+    const projectGroup = document.querySelector('.project-group');
+
+    sidebarGroup.insertBefore(clone, projectGroup);
 }
