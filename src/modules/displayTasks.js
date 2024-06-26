@@ -1,19 +1,20 @@
 import { appendElement, createElement, setDefault, setTomorrow } from "./domManipulation";
-import { listenEvents } from "./listenEvents";
+import { taskListener } from "./listenEvents";
+import { tasks } from "./tasks";
 
-export function displayTasks(value) {
+export function getTasks(value) {
     if (value === 'Tomorrow') {
         setTomorrow(); //for date-picker in modal
-        createTemplate(value); 
+        displayTasks(value); 
     }
     else {
         setDefault();
-        createTemplate(value);
+        displayTasks(value);
     }
-    listenEvents();
+    taskListener();
 }
 
-function createTemplate(value) {
+function displayTasks(value) {
     const taskView = document.querySelector('.task-view')
     taskView.innerHTML = '';
 
@@ -27,6 +28,15 @@ function createTemplate(value) {
     const card2 = createElement('div', ['card']);
     const completed = createElement('div', ['completed'], {textContent: '0'});
     const cardName2 = createElement('div', ['card-name'], {textContent: 'Completed Tasks'});
+
+    //above are task counters
+
+    Object.keys(tasks).forEach(key => {
+        console.log(tasks[key])
+    })
+
+
+    // console.log(tasks['sample task'])
 
     const addTask = createElement('div', ['add-task']);
     const addTaskContent = createElement('div', [], {textContent: '+ Add Task'});
