@@ -1,8 +1,10 @@
-import { setDuePlaceholder } from "./domManipulation.js";
+import { setDuePlaceholder, setProjectOption } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
 import { createProject, projects as projectsArray } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
 import { getTasks } from "./displayTasks.js";
+
+export const tasksNav = ['Today', 'Tomorrow', 'This Week', 'Planned', 'Completed'];
 
 export function sidebarListener() {
     const sidebarButton = document.querySelector('.sidebar-icon');
@@ -16,17 +18,16 @@ export function sidebarListener() {
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
-            const tasksNav = ['Today', 'Tomorrow', 'This Week', 'Planned', 'Completed'];
             const taskIndex = Array.from(navTasks).indexOf(e.currentTarget);
             getTasks(tasksNav[taskIndex]);
-            console.log('returned');
         });
     });
 
     navProjects.forEach(project => {
         project.addEventListener('click', (e) => {
             const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
-            getTasks(projectsArray[projectIndex])
+            getTasks(projectsArray[projectIndex]);
+            setProjectOption(projectsArray[projectIndex]);
         })
     });
 
@@ -86,11 +87,11 @@ export function taskListener() {
 
         const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
         tasks[task.taskTitle] = task;
-        console.log(tasks)
+        getTasks(document.querySelector('.tag').dataset.value);
 
         modalBackdrop.classList.add('hidden');
         addModal.classList.add('hidden');
-
+        
         form.reset();
     });
 

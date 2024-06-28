@@ -1,6 +1,6 @@
 import { renderProjects } from "./domManipulation";
 
-export const projects = ['Default']
+export const projects = ['Default', 'Sample']
 
 export function createProject(projectTitle) {
     if (!projectTitle) return;
