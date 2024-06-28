@@ -51,7 +51,17 @@ export function setTomorrow() {
 export function setDefault() {
     const datePicker = document.querySelector('.date-picker');
     datePicker.setAttribute('value', getMin());
-    setDuePlaceholder(getToday());
+    setDuePlaceholder(dateFormatter(getToday()));
+}
+
+export function setProjectOption(value) {
+    const projectOptions = document.querySelectorAll('.project-option');
+
+    projectOptions.forEach(option => {
+        if (option.value === value) {
+            option.setAttribute('selected', '');
+        }
+    });
 }
 
 export function renderProjects() {
@@ -108,6 +118,6 @@ function clearNavTasks() {
 function insertNavTask(clone) {
     const sidebarGroup = document.querySelector('.sidebar-group');
     const projectGroup = document.querySelector('.project-group');
-
+    //include navIcon next time
     sidebarGroup.insertBefore(clone, projectGroup);
 }
