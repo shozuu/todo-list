@@ -62,7 +62,7 @@ export function taskListener() {
     const addModal = document.querySelector('.add-modal');
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
-    const taskCardCheckbox = document.querySelectorAll('.taskCard-checkbox');
+    const taskCard = document.querySelectorAll('.taskCard');
 
     addTask.addEventListener('click', () => {
         modalBackdrop.classList.remove('hidden');
@@ -107,9 +107,16 @@ export function taskListener() {
         })
     })    
 
-    taskCardCheckbox.forEach(checkbox => {
-        checkbox.addEventListener('click', () => {
-            console.log(checkbox.checked)
+    taskCard.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.checked) {
+                tasks[e.currentTarget.dataset.value].taskComplete = true;
+            } else if (e.target.checked === false){
+                tasks[e.currentTarget.dataset.value].taskComplete = false;
+            }
+
+            console.log(tasks[e.currentTarget.dataset.value])
+
         })
     })
 }
