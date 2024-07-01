@@ -1,35 +1,40 @@
 export const tasks = {
     'sample task': {
+        taskComplete: false,
         taskDesc: 'description',
-        taskDue: '2024-06-26',
+        taskDue: '2024-07-01',
         taskPriority: 'Low Priority',
         taskProject: 'Default',
         taskTitle: 'sample task'
     },
     'sample task2': {
+        taskComplete: false,
         taskDesc: 'description2',
-        taskDue: '2024-06-27',
+        taskDue: '2024-07-01',
         taskPriority: 'Medium Priority',
         taskProject: 'Default',
         taskTitle: 'sample task2'
     },
     'sample task3': {
+        taskComplete: false,
         taskDesc: 'description3',
-        taskDue: '2024-06-28',
+        taskDue: '2024-07-02',
         taskPriority: 'High Priority',
         taskProject: 'Default',
         taskTitle: 'sample task3'
     },
     'sample task4': {
+        taskComplete: false,
         taskDesc: 'description4',
-        taskDue: '2024-06-28',
+        taskDue: '2024-07-04',
         taskPriority: 'Medium Priority',
         taskProject: 'Sample',
         taskTitle: 'sample task4'
     },
     'sample task5': {
+        taskComplete: false,
         taskDesc: 'description5',
-        taskDue: '2024-06-29',
+        taskDue: '2024-07-10',
         taskPriority: 'High Priority',
         taskProject: 'Sample',
         taskTitle: 'sample task5'
@@ -37,13 +42,14 @@ export const tasks = {
 
 };
 
-export function createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject) {
+export function createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete) {
     return {
         taskTitle, 
         taskDesc, 
         taskPriority, 
         taskDue, 
-        taskProject
+        taskProject,
+        taskComplete
     }
 }
 

@@ -46,6 +46,7 @@ function createAddPopup() {
     const projectsImg = createElement('img', ['projectImg']);
     const name2 = createElement('div', ['name'], {textContent: 'Projects'});
     const projects = createElement('select', ['projects'], {required: ''});
+    const checkbox = createElement('input', [ 'hidden', 'hidden-checkbox'], {type: 'checkbox'});
     
     projectsArray.forEach(project => {
         const projectOption = createElement('option', ['project-option'], {textContent: project, value: project});
@@ -61,7 +62,7 @@ function createAddPopup() {
     appendElement(temp, [tempPlaceholder, datePicker]);
     appendElement(dueGroup, [dueImg, name1, temp]);
     appendElement(projectGroup, [projectsImg, name2, projects]);
-    appendElement(configGroup, [priorityGroup, dueGroup, projectGroup]);
+    appendElement(configGroup, [priorityGroup, dueGroup, projectGroup, checkbox]);
     appendElement(form, [group, configGroup, addModalButton]);
     appendElement(addModal, [h2, form]);
     appendElement(document.body, [modalBackdrop, addModal]);

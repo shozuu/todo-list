@@ -84,9 +84,11 @@ export function taskListener() {
         const taskPriority = document.querySelector('.task-priority').value;
         const taskDue = document.querySelector('.date-picker').value;
         const taskProject = document.querySelector('.projects').value;
+        const taskComplete = document.querySelector('.hidden-checkbox').checked;
 
-        const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject);
+        const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete);
         tasks[task.taskTitle] = task;
+        console.log(tasks)
         getTasks(document.querySelector('.tag').dataset.value);
 
         modalBackdrop.classList.add('hidden');
