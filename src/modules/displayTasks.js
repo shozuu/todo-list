@@ -15,7 +15,6 @@ export function getTasks(value) {
                 setDefault();
                 displayTasks(value, 'nav');
             }
-            taskListener();
         }
     });
 
@@ -24,7 +23,6 @@ export function getTasks(value) {
             setDefault();
             displayTasks(value, 'project');
         }
-        taskListener();
     });
 }
 
@@ -100,6 +98,7 @@ function displayTasks(value, type) {
 
     const addTask = createAddTask();
     appendElement(taskView, [tag, taskCounter, taskContainer, addTask]);
+    taskListener();
 }
 
 function createTaskCounter(value) {
@@ -121,7 +120,7 @@ function createTaskCounter(value) {
 
 function createTaskCard(task) {
     const taskCard = createElement('div', ['taskCard'], {'data-value': task.taskTitle});
-    const checkbox = createElement('input', [], {type: 'checkbox'});
+    const checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox'});
     const taskTitle = createElement('div', [], {textContent: task.taskTitle});
     const taskDue = createElement('div', ['taskCard-due'], {textContent: dateFormatter(task.taskDue)})
 

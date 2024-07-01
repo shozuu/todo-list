@@ -62,6 +62,7 @@ export function taskListener() {
     const addModal = document.querySelector('.add-modal');
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
+    const taskCardCheckbox = document.querySelectorAll('.taskCard-checkbox');
 
     addTask.addEventListener('click', () => {
         modalBackdrop.classList.remove('hidden');
@@ -105,4 +106,10 @@ export function taskListener() {
             setDuePlaceholder(dateFormatter(datePicker.value));
         })
     })    
+
+    taskCardCheckbox.forEach(checkbox => {
+        checkbox.addEventListener('click', () => {
+            console.log(checkbox.checked)
+        })
+    })
 }

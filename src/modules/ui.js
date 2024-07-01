@@ -1,5 +1,5 @@
 import { imgObjects, setImgs } from "./imageHandler.js";
-import { sidebarListener, taskListener } from "./listenEvents.js";
+import { sidebarListener } from "./listenEvents.js";
 import { createElement, appendElement } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
 import { projects as projectsArray } from "./projects.js";
@@ -9,7 +9,6 @@ export function renderUI() {
     createAddPopup();
     getTasks('Today');
     sidebarListener();
-    taskListener();
     setImgs(imgObjects);
 }
 
