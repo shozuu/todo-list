@@ -121,3 +121,36 @@ function insertNavTask(clone) {
     //include navIcon next time
     sidebarGroup.insertBefore(clone, projectGroup);
 }
+
+export function displayModal(task) {
+    const h2 = document.querySelector('.h2');
+    const taskTitle = document.querySelector('.task-title');
+    const taskDesc = document.querySelector('.task-desc');
+    const taskPriority = document.querySelector('.task-priority');
+    const taskDue = document.querySelector('.date-picker');
+    const taskProject = document.querySelector('.projects');
+
+    h2.innerText = 'Edit Task';
+    taskTitle.value = task.taskTitle;
+    taskDesc.value = task.taskDesc;
+    taskPriority.value = task.taskPriority;
+    taskDue.value = task.taskDue;
+    taskProject.value = task.taskProject;
+}
+
+export function cloneAddModal() {
+    const h2 = document.querySelector('.h2');
+    const form = document.querySelector('.form');
+
+    const clonedH2 = h2.cloneNode(true);
+    const clonedForm =form.cloneNode(true);
+
+    return {clonedH2, clonedForm};
+}
+
+export function resetAddModal(clone) {
+    const addModal = document.querySelector('.add-modal');
+    addModal.innerHTML = '';
+
+    appendElement(addModal, [clone.clonedH2, clone.clonedForm]);
+}

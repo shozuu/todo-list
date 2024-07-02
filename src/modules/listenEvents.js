@@ -1,4 +1,4 @@
-import { setDuePlaceholder, setProjectOption } from "./domManipulation.js";
+import { cloneAddModal, displayModal, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
 import { createProject, projects as projectsArray } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
@@ -107,16 +107,28 @@ export function taskListener() {
         })
     })    
 
+    const clone = cloneAddModal();
+
     taskCard.forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.checked) {
                 tasks[e.currentTarget.dataset.value].taskComplete = true;
+                //logic/function to remove the element and transfer it to completed
             } else if (e.target.checked === false){
                 tasks[e.currentTarget.dataset.value].taskComplete = false;
             }
+            
+            displayModal(tasks[e.currentTarget.dataset.value])
 
-            console.log(tasks[e.currentTarget.dataset.value])
+            modalBackdrop.classList.remove('hidden');
+            addModal.classList.remove('hidden');
 
+            modalBackdrop.addEventListener('click', () => {
+                modalBackdrop.classList.add('hidden');
+                addModal.classList.add('hidden');
+                resetAddModal(clone);
+                getTasks(document.querySelector('.tag').dataset.value);//resets taskListener and renders image again
+            });
         })
     })
 }
