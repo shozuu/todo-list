@@ -1,4 +1,3 @@
-import { imgObjects, setImgs } from "./imageHandler.js";
 import { sidebarListener } from "./listenEvents.js";
 import { createElement, appendElement } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
@@ -9,14 +8,13 @@ export function renderUI() {
     createAddPopup();
     getTasks('Today');
     sidebarListener();
-    setImgs(imgObjects);
 }
 
 function createAddPopup() {
     const modalBackdrop = createElement('div', ['modal-backdrop', 'hidden']);
     const addModal = createElement('div', ['add-modal', 'hidden']);
 
-    const h2 = createElement('h2', [], {textContent: 'Add Task'});
+    const h2 = createElement('h2', ['h2'], {textContent: 'Add Task'});
     const form = createElement('form', ['form'], {action: '#'});
     
     const group = createElement('div', ['group']);

@@ -1,5 +1,6 @@
 import { dateFormatter, getToday, getTom, getWeekRange } from "./dateHandler";
 import { appendElement, createElement, setDefault, setTomorrow } from "./domManipulation";
+import { imgObjects, setImgs } from "./imageHandler";
 import { taskListener, tasksNav } from "./listenEvents";
 import { projects } from "./projects";
 import { tasks } from "./tasks";
@@ -99,6 +100,7 @@ function displayTasks(value, type) {
     const addTask = createAddTask();
     appendElement(taskView, [tag, taskCounter, taskContainer, addTask]);
     taskListener();
+    setImgs(imgObjects);
 }
 
 function createTaskCounter(value) {
