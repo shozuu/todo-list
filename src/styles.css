@@ -200,8 +200,16 @@ img {
     font-size: var(--font-size-base);
 }
 
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
 .add-task,
-.addModal-button {
+.addModal-button,
+.deleteTask-button,
+.editTask-button {
     font-family: inherit;
     outline: none;
     background-color: var(--primary-color);
@@ -213,7 +221,9 @@ img {
 }
 
 .add-task:hover,
-.addModal-button:hover {
+.addModal-button:hover,
+.deleteTask-button:hover,
+.editTask-button:hover  {
     background-color: var(--secondary-color);
 }
 
