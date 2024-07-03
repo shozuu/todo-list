@@ -123,6 +123,17 @@ function insertNavTask(clone) {
 }
 
 export function displayModal(task) {
+    const form = document.querySelector('.form');
+    const addModalButton = document.querySelector('.addModal-button');
+    addModalButton.remove();
+
+    const buttonGroup = createElement('div', ['button-group']);
+    const deleteButton = createElement('div', ['deleteTask-button'], {textContent: 'Delete Task'});
+    const editButton = createElement('div', ['editTask-button'], {textContent: 'Save Changes'});
+    
+    appendElement(buttonGroup, [deleteButton, editButton]);
+    appendElement(form, [buttonGroup]);
+
     const h2 = document.querySelector('.h2');
     const taskTitle = document.querySelector('.task-title');
     const taskDesc = document.querySelector('.task-desc');
@@ -130,7 +141,7 @@ export function displayModal(task) {
     const taskDue = document.querySelector('.date-picker');
     const taskProject = document.querySelector('.projects');
 
-    h2.innerText = 'Edit Task';
+    h2.innerText = 'View / Edit Task';
     taskTitle.value = task.taskTitle;
     taskDesc.value = task.taskDesc;
     taskPriority.value = task.taskPriority;
