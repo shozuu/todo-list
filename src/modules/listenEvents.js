@@ -175,6 +175,14 @@ export function taskListener() {
                 addModal.classList.add('hidden');
                 getTasks(document.querySelector('.tag').dataset.value);                
             })
+
+            deleteButton.addEventListener('click', () => {
+                delete tasks[currentTask];
+                resetAddModal(clone);
+                modalBackdrop.classList.add('hidden');
+                addModal.classList.add('hidden');
+                getTasks(document.querySelector('.tag').dataset.value);  
+            })
         })
     })
 }

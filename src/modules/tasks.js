@@ -2,7 +2,7 @@ export const tasks = {
     'sample task': {
         taskComplete: false,
         taskDesc: 'description',
-        taskDue: '2024-07-01',
+        taskDue: '2024-07-03',
         taskPriority: 'Low Priority',
         taskProject: 'Default',
         taskTitle: 'sample task'
@@ -10,7 +10,7 @@ export const tasks = {
     'sample task2': {
         taskComplete: false,
         taskDesc: 'description2',
-        taskDue: '2024-07-01',
+        taskDue: '2024-07-03',
         taskPriority: 'Medium Priority',
         taskProject: 'Default',
         taskTitle: 'sample task2'
@@ -18,7 +18,7 @@ export const tasks = {
     'sample task3': {
         taskComplete: false,
         taskDesc: 'description3',
-        taskDue: '2024-07-02',
+        taskDue: '2024-07-04',
         taskPriority: 'High Priority',
         taskProject: 'Default',
         taskTitle: 'sample task3'
