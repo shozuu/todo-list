@@ -79,7 +79,7 @@ export function taskListener() {
             e.preventDefault();
             return;
         }
-
+        
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
         const taskPriority = document.querySelector('.task-priority').value;
@@ -87,15 +87,27 @@ export function taskListener() {
         const taskProject = document.querySelector('.projects').value;
         const taskComplete = document.querySelector('.hidden-checkbox').checked;
 
+        let taskFlag = false;
+        Object.keys(tasks).forEach(task => {
+            if (task === taskTitle) {
+                alert(`Task "${taskTitle}" already exist`);
+                taskFlag = true;
+            }
+        })
+        if (taskFlag) {
+            form.reset();
+            modalBackdrop.classList.add('hidden');
+            addModal.classList.add('hidden');
+            return;
+        }
+
         const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete);
         tasks[task.taskTitle] = task;
-        console.log(tasks)
+        form.reset();
         getTasks(document.querySelector('.tag').dataset.value);
-
+        
         modalBackdrop.classList.add('hidden');
         addModal.classList.add('hidden');
-        
-        form.reset();
     });
 
     dueDate.addEventListener('click', () => {
@@ -114,12 +126,13 @@ export function taskListener() {
             if (e.target.checked) {
                 tasks[e.currentTarget.dataset.value].taskComplete = true;
                 //logic/function to remove the element and transfer it to completed
-            } else if (e.target.checked === false){
+            } 
+            else if (e.target.checked === false){
                 tasks[e.currentTarget.dataset.value].taskComplete = false;
             }
-            
-            displayModal(tasks[e.currentTarget.dataset.value])
 
+            const currentTask = e.currentTarget.dataset.value;
+            displayModal(tasks[currentTask]);
             modalBackdrop.classList.remove('hidden');
             addModal.classList.remove('hidden');
 
@@ -127,8 +140,41 @@ export function taskListener() {
                 modalBackdrop.classList.add('hidden');
                 addModal.classList.add('hidden');
                 resetAddModal(clone);
-                getTasks(document.querySelector('.tag').dataset.value);//resets taskListener and renders image again
+                getTasks(document.querySelector('.tag').dataset.value);
             });
+
+            const deleteButton = document.querySelector('.deleteTask-button');
+            const editButton = document.querySelector('.editTask-button');
+
+            editButton.addEventListener('click', (e) => {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    alert('Task Title and/or Description cannot be empty')
+                    return;
+                }
+
+                const taskTitle = document.querySelector('.task-title').value;
+                const taskDesc = document.querySelector('.task-desc').value;
+                const taskPriority = document.querySelector('.task-priority').value;
+                const taskDue = document.querySelector('.date-picker').value;
+                const taskProject = document.querySelector('.projects').value;
+                const taskComplete = document.querySelector('.hidden-checkbox').checked;
+
+                const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete);
+
+                if (currentTask != task.taskTitle) {//the title has been edited
+                    tasks[task.taskTitle] = task;
+                    delete tasks[currentTask];
+                } 
+                else {
+                    tasks[task.taskTitle] = task;
+                }
+
+                resetAddModal(clone);
+                modalBackdrop.classList.add('hidden');
+                addModal.classList.add('hidden');
+                getTasks(document.querySelector('.tag').dataset.value);                
+            })
         })
     })
 }
