@@ -146,16 +146,17 @@ function createTaskCard(task) {
     console.log(task)
     if (task.taskComplete) {
         taskCard = createElement('s', ['taskCard'], {'data-value': task.taskTitle});
-        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', 'data-value': task.taskTitle, checked: ''});
+        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', id: 'checkbox', 'data-value': task.taskTitle, checked: ''});
     }
     else {
         taskCard = createElement('div', ['taskCard'], {'data-value': task.taskTitle});
-        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', 'data-value': task.taskTitle});
+        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', id: 'checkbox', 'data-value': task.taskTitle});
     }
+    const checkboxLabel = createElement('label', ['custom-checkbox'], {for: 'checkbox'})
     const taskTitle = createElement('div', [], {textContent: task.taskTitle});
     const taskDue = createElement('div', ['taskCard-due'], {textContent: dateFormatter(task.taskDue)})
 
-    appendElement(taskCard, [checkbox, taskTitle, taskDue]);
+    appendElement(taskCard, [checkbox, checkboxLabel, taskTitle, taskDue]);
     return taskCard;
 }
 

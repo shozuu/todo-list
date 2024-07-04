@@ -132,14 +132,15 @@ export function taskListener() {
             else {
                 tasks[value].taskComplete = false;
             }
-            getTasks(document.querySelector('.tag').dataset.value);
+            setTimeout(() => {
+                getTasks(document.querySelector('.tag').dataset.value);
+            }, 300);
         })
     })
 
     taskCard.forEach(card => {
         card.addEventListener('click', (e) => {
-            if (e.target.classList.contains('taskCard-checkbox')) return; //prevent trigger of modal when checkbox is clicked
-
+            if (e.target.tagName != 'DIV') return; //prevents the trigger of modal
             const currentTask = e.currentTarget.dataset.value;
             displayModal(tasks[currentTask]);
             modalBackdrop.classList.remove('hidden');

@@ -104,16 +104,19 @@ img {
     outline: none;
 }
 
-.add-project-buttons {
+.add-project-buttons,
+.button-group {
     font-size: var(--font-size-base);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px 10px;
+    gap: 15px;
     text-align: center;
 }
 
 .add-project-confirm,
-.add-project-cancel {
+.add-project-cancel,
+.deleteTask-button,
+.editTask-button {
     padding: 5px;
     border-radius: 5px;
     color: #ffffff;
@@ -121,15 +124,18 @@ img {
     background-color: #28a745;
 }
 
-.add-project-confirm:hover {
+.add-project-confirm:hover,
+.editTask-button:hover {
     background-color: #218838;
 }
 
-.add-project-cancel {
+.add-project-cancel,
+.deleteTask-button {
     background-color: #dc3545;
 }
 
-.add-project-cancel:hover {
+.add-project-cancel:hover,
+.deleteTask-button:hover {
     background-color: #c82333;
 }
 
@@ -200,16 +206,8 @@ img {
     font-size: var(--font-size-base);
 }
 
-.button-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
 .add-task,
-.addModal-button,
-.deleteTask-button,
-.editTask-button {
+.addModal-button {
     font-family: inherit;
     outline: none;
     background-color: var(--primary-color);
@@ -221,9 +219,7 @@ img {
 }
 
 .add-task:hover,
-.addModal-button:hover,
-.deleteTask-button:hover,
-.editTask-button:hover  {
+.addModal-button:hover {
     background-color: var(--secondary-color);
 }
 
@@ -340,8 +336,52 @@ select {
     padding: 10px 15px;
     background-color: var(--secondary-color);
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .taskCard-due {
     margin-left: auto;
+}
+
+.taskCard-checkbox {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #B4B4B4;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox {
+    border: none;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #218838;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox::before {
+    opacity: 1;
+    transform: scale(1);
 }
