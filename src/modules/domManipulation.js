@@ -78,7 +78,15 @@ export function renderProjects() {
         const projectImg = createElement('img', ['projectImg'], {src: "", alt: 'Project'});
         const name = createElement('div', ['name'], {textContent: project});
         const count = createElement('div', ['count'], {textContent: 0});
-        appendElement(navProjects, [projectImg, name, count]);
+
+        const options = createElement('div', ['options','hidden'], {textContent: '•••'});
+        const optionGroup = createElement('div', ['option-group', 'hidden']);
+        const rename = createElement('div', ['rename-project'], {textContent: 'Rename'});
+        const _delete = createElement('div', ['delete-project'], {textContent: 'Delete'});
+
+        appendElement(optionGroup, [rename, _delete]);
+        appendElement(options, [optionGroup]);
+        appendElement(navProjects, [projectImg, name, count, options]);
         projectGroup.insertBefore(navProjects, addProjectPopup);
     });
 
