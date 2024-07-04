@@ -1,5 +1,4 @@
-import { sidebarListener } from "./listenEvents.js";
-import { createElement, appendElement } from "./domManipulation.js";
+import { createElement, appendElement, renderProjects } from "./domManipulation.js";
 import { getToday, getMin } from "./dateHandler.js";
 import { projects as projectsArray } from "./projects.js";
 import { getTasks } from "./displayTasks.js";
@@ -7,7 +6,7 @@ import { getTasks } from "./displayTasks.js";
 export function renderUI() {
     createAddPopup();
     getTasks('Today');
-    sidebarListener();
+    renderProjects();
 }
 
 function createAddPopup() {
