@@ -10,6 +10,7 @@ export function sidebarListener() {
     const sidebarButton = document.querySelector('.sidebar-icon');
     const navTasks = document.querySelectorAll('.nav-tasks');
     const navProjects = document.querySelectorAll('.nav-projects');
+    const options = document.querySelectorAll('.options');
     const addProject = document.querySelector('.add-project');
 
     sidebarButton.addEventListener('click', () => {
@@ -25,11 +26,53 @@ export function sidebarListener() {
 
     navProjects.forEach(project => {
         project.addEventListener('click', (e) => {
+            if(e.target.classList.contains('options')) return;
             const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
             getTasks(projectsArray[projectIndex]);
             setProjectOption(projectsArray[projectIndex]);
         })
+        project.addEventListener('mouseenter', (e) => {
+            const options = e.target.querySelector('.options');
+            const count = e.target.querySelector('.count');
+            options.classList.remove('hidden');
+            count.classList.add('hidden');
+        })
+        project.addEventListener('mouseleave', (e) => {//having a modal appear considers as mouseleave, thus, triggering this
+            const backdrop = document.querySelector('.transparent-backdrop');
+            if (!backdrop.classList.contains('hidden')) return;
+
+            const options = e.target.querySelector('.options');
+            const count = e.target.querySelector('.count');
+            options.classList.add('hidden');
+            count.classList.remove('hidden');
+        })
     });
+
+    options.forEach(option => {
+        option.addEventListener('click', (e) => {
+            const optionGroup = e.target.querySelector('.option-group');
+            const backdrop = document.querySelector('.transparent-backdrop');
+
+            optionGroup.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+
+            backdrop.addEventListener('click', () => {
+                const options = document.querySelectorAll('.options');
+                const counts = document.querySelectorAll('.count');
+                
+                options.forEach(option => {
+                    option.classList.add('hidden');
+                });
+
+                counts.forEach(count => {
+                    count.classList.remove('hidden');
+                });
+
+                optionGroup.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            })
+        })
+    })
 
     addProject.addEventListener('click', () => {
         const addProjectPopup = document.querySelector('.add-project-popup');
