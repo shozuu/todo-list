@@ -43,45 +43,63 @@ function displayTasks(value, type) {
             case 'Today':
                 Object.keys(tasks).forEach(key => {
                     if (tasks[key].taskDue === getToday()) {
+                        if (tasks[key].taskComplete) {
+                            completedTaskCount++;
+                            return;
+                        }
                         appendElement(taskContainer, [createTaskCard(tasks[key])])
                         pendingTaskCount++;
                     }
                 }) 
-                taskCounter = createTaskCounter(pendingTaskCount);
+                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
                 break;
             case 'Tomorrow':
                 Object.keys(tasks).forEach(key => {
                     if (tasks[key].taskDue === getTom()) {
+                        if (tasks[key].taskComplete) {
+                            completedTaskCount++;
+                            return;
+                        }
                         appendElement(taskContainer, [createTaskCard(tasks[key])])
                         pendingTaskCount++;
                     }
                 })
-                taskCounter = createTaskCounter(pendingTaskCount);
+                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
                 break;
             case 'This Week':
                 Object.keys(tasks).forEach(key => {
                     if (getWeekRange(tasks[key].taskDue)) {
+                        if (tasks[key].taskComplete) {
+                            completedTaskCount++;
+                            return;
+                        }
                         appendElement(taskContainer, [createTaskCard(tasks[key])])
                         pendingTaskCount++;
                     }
                 })
-                taskCounter = createTaskCounter(pendingTaskCount);
+                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
                 break;
             case 'Planned':
                 Object.keys(tasks).forEach(key => {
                     if (!getWeekRange(tasks[key].taskDue)) {
+                        if (tasks[key].taskComplete) {
+                            completedTaskCount++;
+                            return;
+                        }
                         appendElement(taskContainer, [createTaskCard(tasks[key])])
                         pendingTaskCount++;
                     }
                 })
-                taskCounter = createTaskCounter(pendingTaskCount);
+                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
                 break;
             case 'Completed':
-                Object.keys(tasks).forEach(key => {
-                    //function call that passes all the checked value in task
-                    console.log('working on completed')
+                Object.keys(tasks).forEach(key => { 
+                    if (tasks[key].taskComplete) {
+                        completedTaskCount++;
+                        appendElement(taskContainer, [createTaskCard(tasks[key])])
+                    }
                 })
-                taskCounter = createTaskCounter(pendingTaskCount);
+                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
                 break;
             default:
                 break;
@@ -90,28 +108,30 @@ function displayTasks(value, type) {
     else if (type === 'project') {
         Object.keys(tasks).forEach(key => {
             if (value === tasks[key].taskProject) {
+                if (tasks[key].taskComplete) {
+                    completedTaskCount++;
+                    return;
+                }
                 appendElement(taskContainer, [createTaskCard(tasks[key])])
                 pendingTaskCount++;
             }
         })
-        taskCounter = createTaskCounter(pendingTaskCount);
+        taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
     }
 
     const addTask = createAddTask();
     appendElement(taskView, [tag, taskCounter, taskContainer, addTask]);
     taskListener();
     setImgs(imgObjects);
-}
+}//fix completed page
 
-function createTaskCounter(value) {
-    //logic to retrieve the count of tasks under projectName/taskNav
-
+function createTaskCounter(pending, complete) {
     const taskCounter = createElement('div', ['task-counter']);
     const card = createElement('div', ['card']);
-    const toComplete = createElement('div', ['toComplete'], {textContent: value});
+    const toComplete = createElement('div', ['toComplete'], {textContent: pending});
     const cardName = createElement('div', ['card-name'], {textContent: 'Tasks to be Completed'});
     const card2 = createElement('div', ['card']);
-    const completed = createElement('div', ['completed'], {textContent: '0'}); //should be dynamic value
+    const completed = createElement('div', ['completed'], {textContent: complete}); //should be dynamic value
     const cardName2 = createElement('div', ['card-name'], {textContent: 'Completed Tasks'});
 
     appendElement(card, [toComplete, cardName]);
@@ -121,8 +141,17 @@ function createTaskCounter(value) {
 }
 
 function createTaskCard(task) {
-    const taskCard = createElement('div', ['taskCard'], {'data-value': task.taskTitle});
-    const checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox'});
+    let taskCard;
+    let checkbox;
+    console.log(task)
+    if (task.taskComplete) {
+        taskCard = createElement('s', ['taskCard'], {'data-value': task.taskTitle});
+        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', 'data-value': task.taskTitle, checked: ''});
+    }
+    else {
+        taskCard = createElement('div', ['taskCard'], {'data-value': task.taskTitle});
+        checkbox = createElement('input', ['taskCard-checkbox'], {type: 'checkbox', 'data-value': task.taskTitle});
+    }
     const taskTitle = createElement('div', [], {textContent: task.taskTitle});
     const taskDue = createElement('div', ['taskCard-due'], {textContent: dateFormatter(task.taskDue)})
 
