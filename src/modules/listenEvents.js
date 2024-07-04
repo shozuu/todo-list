@@ -63,6 +63,7 @@ export function taskListener() {
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
     const taskCard = document.querySelectorAll('.taskCard');
+    const checkboxes = document.querySelectorAll('.taskCard-checkbox');
 
     addTask.addEventListener('click', () => {
         modalBackdrop.classList.remove('hidden');
@@ -121,15 +122,23 @@ export function taskListener() {
 
     const clone = cloneAddModal();
 
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const value = checkbox.dataset.value;
+
+            if (checkbox.checked) {
+                tasks[value].taskComplete = true;
+            } 
+            else {
+                tasks[value].taskComplete = false;
+            }
+            getTasks(document.querySelector('.tag').dataset.value);
+        })
+    })
+
     taskCard.forEach(card => {
         card.addEventListener('click', (e) => {
-            if (e.target.checked) {
-                tasks[e.currentTarget.dataset.value].taskComplete = true;
-                //logic/function to remove the element and transfer it to completed
-            } 
-            else if (e.target.checked === false){
-                tasks[e.currentTarget.dataset.value].taskComplete = false;
-            }
+            if (e.target.classList.contains('taskCard-checkbox')) return; //prevent trigger of modal when checkbox is clicked
 
             const currentTask = e.currentTarget.dataset.value;
             displayModal(tasks[currentTask]);
