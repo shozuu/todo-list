@@ -81,6 +81,7 @@ img {
     gap: 20px;
     font-size: var(--font-size-base);
     user-select: none;
+    position: relative;
 }
 
 .count {
@@ -223,13 +224,18 @@ img {
     background-color: var(--secondary-color);
 }
 
-.modal-backdrop {
+.modal-backdrop,
+.transparent-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.542);
+}
+
+.transparent-backdrop {
+    background-color: transparent;
 }
 
 .add-modal {
@@ -384,4 +390,29 @@ select {
 .taskCard-checkbox:checked + .custom-checkbox::before {
     opacity: 1;
     transform: scale(1);
+}
+
+.options {
+    position: absolute;
+    right: 0;
+    margin-right: 6px;
+}
+
+.option-group {
+    position: absolute;
+    background-color: var(--secondary-color);
+    padding: 10px 0px;
+    width: 100px;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.rename-project,
+.delete-project {
+    padding: 0px 10px;
+}
+
+.rename-project:hover,
+.delete-project:hover {
+    background-color: var(--tertiary-color);
 }
