@@ -108,7 +108,7 @@ export function taskListener() {
     const form = document.querySelector('.form');
     const dueDate = document.querySelector('.due-date');
     const taskCard = document.querySelectorAll('.taskCard');
-    const checkboxes = document.querySelectorAll('.taskCard-checkbox');
+    const checkboxLabels = document.querySelectorAll('.custom-checkbox');
 
     addTask.addEventListener('click', () => {
         modalBackdrop.classList.remove('hidden');
@@ -167,15 +167,19 @@ export function taskListener() {
 
     const clone = cloneAddModal();
 
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            const value = checkbox.dataset.value;
-
-            if (checkbox.checked) {
+    checkboxLabels.forEach(label => {
+        label.addEventListener('click', (e) => {
+            const checkbox = e.target.previousElementSibling;
+            const checkboxIndex = Array.from(checkboxLabels).indexOf(e.currentTarget);
+            const value = checkboxLabels[checkboxIndex].dataset.value;
+            
+            if (!tasks[value].taskComplete) { //if false
                 tasks[value].taskComplete = true;
+                checkbox.checked = true;
             } 
             else {
                 tasks[value].taskComplete = false;
+                checkbox.checked = false;
             }
             setTimeout(() => {
                 getTasks(document.querySelector('.tag').dataset.value);
@@ -185,7 +189,7 @@ export function taskListener() {
 
     taskCard.forEach(card => {
         card.addEventListener('click', (e) => {
-            if (e.target.tagName != 'DIV') return; //prevents the trigger of modal
+            if (e.target.tagName != 'DIV' && e.target.tagName != 'S') return; //prevents the trigger of modal
             const currentTask = e.currentTarget.dataset.value;
             displayModal(tasks[currentTask]);
             modalBackdrop.classList.remove('hidden');
