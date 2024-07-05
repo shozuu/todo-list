@@ -146,7 +146,8 @@ img {
 
 .nav-tasks:hover,
 .nav-projects:hover,
-.add-project:hover {
+.add-project:hover,
+.selected {
     background-color: var(--primary-color);
     border-radius: 10px;
     cursor: pointer;

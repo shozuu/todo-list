@@ -1,4 +1,4 @@
-import { cloneAddModal, displayModal, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
+import { cloneAddModal, displayModal, highlightSelected, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
 import { createProject, projects as projectsArray } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
@@ -19,6 +19,7 @@ export function sidebarListener() {
 
     navTasks.forEach(navTask => {
         navTask.addEventListener('click', (e) => {
+            highlightSelected(e.currentTarget)
             const taskIndex = Array.from(navTasks).indexOf(e.currentTarget);
             getTasks(tasksNav[taskIndex]);
         });
@@ -26,6 +27,7 @@ export function sidebarListener() {
 
     navProjects.forEach(project => {
         project.addEventListener('click', (e) => {
+            highlightSelected(e.currentTarget)
             if(e.target.classList.contains('options')) return;
             const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
             getTasks(projectsArray[projectIndex]);

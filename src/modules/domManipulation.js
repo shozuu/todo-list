@@ -37,6 +37,19 @@ export function appendElement(parentElement, childElement = []) {
     }
 }
 
+export function highlightSelected(value) {
+    const navTasks = document.querySelectorAll('.nav-tasks');
+    const navProjects = document.querySelectorAll('.nav-projects');
+
+    navTasks.forEach(nav => {
+        nav.classList.remove('selected');
+    })
+    navProjects.forEach(project => {
+        project.classList.remove('selected');
+    })
+    value.classList.add('selected');
+}
+
 export function setDuePlaceholder(value) {
     const placeholder = document.querySelector('.placeholder');
     placeholder.textContent = value;
