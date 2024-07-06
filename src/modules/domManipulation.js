@@ -89,7 +89,7 @@ export function renderProjects() {
     projectsArray.forEach(project => { //create the projectGroup with new added project
         const navProjects = createElement('div', ['nav-projects']);
         const projectImg = createElement('img', ['projectImg'], {src: "", alt: 'Project'});
-        const name = createElement('div', ['name'], {textContent: project});
+        const name = createElement('div', ['name'], {textContent: project, 'data-value': project});
         const count = createElement('div', ['count'], {textContent: 0});
 
         const options = createElement('div', ['options','hidden'], {textContent: '•••'});
@@ -162,7 +162,7 @@ export function displayModal(task) {
     const taskDue = document.querySelector('.date-picker');
     const taskProject = document.querySelector('.projects');
 
-    h2.innerText = 'View / Edit Task';
+    h2.innerText = 'Edit Task';
     taskTitle.value = task.taskTitle;
     taskDesc.value = task.taskDesc;
     taskPriority.value = task.taskPriority;
@@ -185,4 +185,18 @@ export function resetAddModal(clone) {
     addModal.innerHTML = '';
 
     appendElement(addModal, [clone.clonedH2, clone.clonedForm]);
+}
+
+export function createRenameModal(projectTitle) {
+    const renameBackdrop = createElement('div', ['rename-backdrop']);
+    const renameModal = createElement('div', ['rename-modal']);
+    const h2 = createElement('h2', ['h2'], {textContent: 'Rename Project'});
+    const input = createElement('input', ['new-project-title'], {type: 'text', value: projectTitle});
+    const buttonGroup = createElement('div', ['rename-buttons']);
+    const cancel = createElement('div', ['rename-project-cancel'], {textContent: 'Cancel'});
+    const confirm = createElement('div', ['rename-project-confirm'], {textContent: 'Confirm'});
+
+    appendElement(buttonGroup, [cancel, confirm]);
+    appendElement(renameModal, [h2, input, buttonGroup]);
+    appendElement(document.body, [renameBackdrop, renameModal]);
 }
