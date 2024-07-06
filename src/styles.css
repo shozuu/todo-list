@@ -96,7 +96,8 @@ img {
     flex-direction: column;
 }
 
-.add-project-popup input {
+.add-project-popup input,
+.rename-modal input {
     font-family: inherit;
     font-size: var(--font-size-base);
     padding: 5px 10px;
@@ -106,7 +107,8 @@ img {
 }
 
 .add-project-buttons,
-.button-group {
+.button-group,
+.rename-buttons {
     font-size: var(--font-size-base);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -117,7 +119,9 @@ img {
 .add-project-confirm,
 .add-project-cancel,
 .deleteTask-button,
-.editTask-button {
+.editTask-button,
+.rename-project-cancel,
+.rename-project-confirm {
     padding: 5px;
     border-radius: 5px;
     color: #ffffff;
@@ -126,17 +130,20 @@ img {
 }
 
 .add-project-confirm:hover,
-.editTask-button:hover {
+.editTask-button:hover,
+.rename-project-confirm:hover {
     background-color: #218838;
 }
 
 .add-project-cancel,
-.deleteTask-button {
+.deleteTask-button,
+.rename-project-cancel {
     background-color: #dc3545;
 }
 
 .add-project-cancel:hover,
-.deleteTask-button:hover {
+.deleteTask-button:hover,
+.rename-project-cancel:hover {
     background-color: #c82333;
 }
 
@@ -226,7 +233,8 @@ img {
 }
 
 .modal-backdrop,
-.transparent-backdrop {
+.transparent-backdrop,
+.rename-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -239,7 +247,8 @@ img {
     background-color: transparent;
 }
 
-.add-modal {
+.add-modal,
+.rename-modal {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -405,7 +414,7 @@ select {
     padding: 10px 0px;
     width: 100px;
     border-radius: 8px;
-    z-index: 1;
+    z-index: 99;
 }
 
 .rename-project,
