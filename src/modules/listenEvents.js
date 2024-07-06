@@ -1,6 +1,6 @@
-import { cloneAddModal, displayModal, highlightSelected, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
+import { cloneAddModal, createRenameModal, displayModal, highlightSelected, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
-import { createProject, projects as projectsArray } from "./projects.js";
+import { createProject, renameProj, projects as projectsArray, } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
 import { getTasks } from "./displayTasks.js";
 
@@ -27,6 +27,8 @@ export function sidebarListener() {
 
     navProjects.forEach(project => {
         project.addEventListener('click', (e) => {
+            if (e.target.classList.contains('option-group') || e.target.classList.contains('options') || e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project')) return;
+
             highlightSelected(e.currentTarget)
             if(e.target.classList.contains('options')) return;
             const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
@@ -50,28 +52,68 @@ export function sidebarListener() {
         })
     });
 
-    options.forEach(option => {
+    options.forEach(option => { //the 3 bullet points
         option.addEventListener('click', (e) => {
-            const optionGroup = e.target.querySelector('.option-group');
+            if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return;
+
+            const optionGroup = e.target.children[0];
             const backdrop = document.querySelector('.transparent-backdrop');
+            const renameProject = e.target.querySelector('.rename-project');
+            const deleteProject = e.target.querySelector('.delete-project');
 
             optionGroup.classList.remove('hidden');
             backdrop.classList.remove('hidden');
 
-            backdrop.addEventListener('click', () => {
+            function reset() {
                 const options = document.querySelectorAll('.options');
                 const counts = document.querySelectorAll('.count');
                 
                 options.forEach(option => {
                     option.classList.add('hidden');
                 });
-
                 counts.forEach(count => {
                     count.classList.remove('hidden');
                 });
 
                 optionGroup.classList.add('hidden');
                 backdrop.classList.add('hidden');
+            }
+
+            backdrop.addEventListener('click', () => {
+                reset();
+            })
+
+            renameProject.addEventListener('click', (e) => {
+                const parentElement = e.target.closest('.options').parentElement;
+                const oldProjectTitle = parentElement.querySelector('.name').dataset.value;
+
+                reset();
+                createRenameModal(oldProjectTitle);
+                
+                const confirm = document.querySelector('.rename-project-confirm');
+                const cancel = document.querySelector('.rename-project-cancel');
+
+                confirm.addEventListener('click', () => {
+                    const renameBackdrop = document.querySelector('.rename-backdrop');
+                    const renameModal = document.querySelector('.rename-modal');
+                    const newProjectTitle = document.querySelector('.new-project-title').value;
+
+                    if (newProjectTitle === '') return;
+                    renameProj(oldProjectTitle, newProjectTitle);
+                    renameBackdrop.remove();
+                    renameModal.remove();
+                })
+                cancel.addEventListener('click', () => {
+                    const renameBackdrop = document.querySelector('.rename-backdrop');
+                    const renameModal = document.querySelector('.rename-modal');
+                    renameBackdrop.remove();
+                    renameModal.remove();
+                })
+
+            })
+
+            deleteProject.addEventListener('click', (e) => {
+                reset();
             })
         })
     })
