@@ -12,6 +12,8 @@ export function sidebarListener() {
     const navProjects = document.querySelectorAll('.nav-projects');
     const options = document.querySelectorAll('.options');
     const addProject = document.querySelector('.add-project');
+    const backdrop = document.querySelector('.transparent-backdrop');
+
 
     sidebarButton.addEventListener('click', () => {
         console.log('this is sidebar')
@@ -42,7 +44,6 @@ export function sidebarListener() {
             count.classList.add('hidden');
         })
         project.addEventListener('mouseleave', (e) => {//having a modal appear considers as mouseleave, thus, triggering this
-            const backdrop = document.querySelector('.transparent-backdrop');
             if (!backdrop.classList.contains('hidden')) return;
 
             const options = e.target.querySelector('.options');
@@ -53,21 +54,22 @@ export function sidebarListener() {
     });
 
     options.forEach(option => { //the 3 bullet points
+        let listenEventFlag = false;
         option.addEventListener('click', (e) => {
-            if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return;
+            console.log(listenEventFlag)
+            if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return; //to make sure all the declaration works
 
             const optionGroup = e.target.children[0];
-            const backdrop = document.querySelector('.transparent-backdrop');
             const renameProject = e.target.querySelector('.rename-project');
             const deleteProject = e.target.querySelector('.delete-project');
 
-            optionGroup.classList.remove('hidden');
+            optionGroup.classList.remove('hidden'); //contains clicked nav-projects' rename and delete
             backdrop.classList.remove('hidden');
 
             function reset() {
                 const options = document.querySelectorAll('.options');
                 const counts = document.querySelectorAll('.count');
-                
+
                 options.forEach(option => {
                     option.classList.add('hidden');
                 });
@@ -79,6 +81,9 @@ export function sidebarListener() {
                 backdrop.classList.add('hidden');
             }
 
+            if (listenEventFlag) return; //this prevents duplicating of 
+            listenEventFlag = true; //event listeners to the elements below
+
             backdrop.addEventListener('click', () => {
                 reset();
             })
@@ -86,10 +91,9 @@ export function sidebarListener() {
             renameProject.addEventListener('click', (e) => {
                 const parentElement = e.target.closest('.options').parentElement;
                 const oldProjectTitle = parentElement.querySelector('.name').dataset.value;
-
                 reset();
                 createRenameModal(oldProjectTitle);
-                
+
                 const confirm = document.querySelector('.rename-project-confirm');
                 const cancel = document.querySelector('.rename-project-cancel');
 
@@ -100,6 +104,7 @@ export function sidebarListener() {
 
                     if (newProjectTitle === '') return;
                     renameProj(oldProjectTitle, newProjectTitle);
+
                     renameBackdrop.remove();
                     renameModal.remove();
                 })
@@ -167,7 +172,7 @@ export function taskListener() {
             e.preventDefault();
             return;
         }
-        
+
         const taskTitle = document.querySelector('.task-title').value;
         const taskDesc = document.querySelector('.task-desc').value;
         const taskPriority = document.querySelector('.task-priority').value;
@@ -193,19 +198,19 @@ export function taskListener() {
         tasks[task.taskTitle] = task;
         form.reset();
         getTasks(document.querySelector('.tag').dataset.value);
-        
+
         modalBackdrop.classList.add('hidden');
         addModal.classList.add('hidden');
     });
 
     dueDate.addEventListener('click', () => {
         const datePicker = document.querySelector('.date-picker');
-        
+
         datePicker.showPicker();
         datePicker.addEventListener('change', () => {
             setDuePlaceholder(dateFormatter(datePicker.value));
         })
-    })    
+    })
 
     const clone = cloneAddModal();
 
@@ -214,11 +219,11 @@ export function taskListener() {
             const checkbox = e.target.previousElementSibling;
             const checkboxIndex = Array.from(checkboxLabels).indexOf(e.currentTarget);
             const value = checkboxLabels[checkboxIndex].dataset.value;
-            
+
             if (!tasks[value].taskComplete) { //if false
                 tasks[value].taskComplete = true;
                 checkbox.checked = true;
-            } 
+            }
             else {
                 tasks[value].taskComplete = false;
                 checkbox.checked = false;
@@ -266,7 +271,7 @@ export function taskListener() {
                 if (currentTask != task.taskTitle) {//the title has been edited
                     tasks[task.taskTitle] = task;
                     delete tasks[currentTask];
-                } 
+                }
                 else {
                     tasks[task.taskTitle] = task;
                 }
@@ -274,7 +279,7 @@ export function taskListener() {
                 resetAddModal(clone);
                 modalBackdrop.classList.add('hidden');
                 addModal.classList.add('hidden');
-                getTasks(document.querySelector('.tag').dataset.value);                
+                getTasks(document.querySelector('.tag').dataset.value);
             })
 
             deleteButton.addEventListener('click', () => {
@@ -282,7 +287,7 @@ export function taskListener() {
                 resetAddModal(clone);
                 modalBackdrop.classList.add('hidden');
                 addModal.classList.add('hidden');
-                getTasks(document.querySelector('.tag').dataset.value);  
+                getTasks(document.querySelector('.tag').dataset.value);
             })
         })
     })
