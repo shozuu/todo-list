@@ -1,8 +1,8 @@
 import { getTasks } from "./displayTasks";
-import { renderProjects } from "./domManipulation";
+import { highlightSelected, renderProjects } from "./domManipulation";
 import { tasks } from "./tasks";
 
-export const projects = ['Default', 'Sample']
+export const projects = ['Default']
 
 export function createProject(projectTitle) {
     if (!projectTitle) return;
@@ -24,15 +24,15 @@ export function createProject(projectTitle) {
 export function renameProj(oldProjectTitle, newProjectTitle) {
     let indexToRemove;
 
-    for (let i = 0; i < projects.length; i++) {
-        if (projects[i].toLowerCase() === newProjectTitle.toLowerCase()) {
+    projects.forEach((project, index) => {
+        if (project.toLowerCase() === newProjectTitle.toLowerCase()) {
             alert(`Project ${newProjectTitle} already exists`)
             return;
         }
-        if (projects[i] === oldProjectTitle) {
-            indexToRemove = i;
+        if (project === oldProjectTitle) {
+            indexToRemove = index;
         }
-    }
+    });
 
     projects.splice(indexToRemove, 1, newProjectTitle);
 
@@ -40,9 +40,38 @@ export function renameProj(oldProjectTitle, newProjectTitle) {
         if (tasks[task].taskProject === oldProjectTitle) {
             tasks[task].taskProject = newProjectTitle;
         }
-        console.log(tasks[task])
     })
 
     renderProjects();
-    getTasks(newProjectTitle);
+    getTasks(newProjectTitle); 
+
+    const navProjects = document.querySelectorAll('.nav-projects');
+    navProjects.forEach(project => {
+        if (project.querySelector('.name').dataset.value === newProjectTitle) {
+            highlightSelected(project);
+        }
+    });
+}
+
+export function deleteProj(projectTitle) {
+    let projectTitleIndex;
+
+    projects.forEach((project, index) => {
+        if (project.toLowerCase() === projectTitle.toLowerCase()) { //check if existing
+           projectTitleIndex = index;
+
+            Object.keys(tasks).forEach(task => {
+                if (tasks[task].taskProject === projectTitle) { //delete tasks
+                    delete tasks[task];
+                }
+            })
+
+            projects.splice(projectTitleIndex, 1);
+        }
+    });
+    renderProjects();
+    getTasks('Today');
+
+    const navTasks = document.querySelectorAll('.nav-tasks');
+    highlightSelected(navTasks[0]);
 }
