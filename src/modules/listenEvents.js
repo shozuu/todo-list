@@ -1,6 +1,6 @@
-import { cloneAddModal, createRenameModal, displayModal, highlightSelected, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
+import { cloneAddModal, createDeleteModal, createRenameModal, displayModal, highlightSelected, resetAddModal, setDuePlaceholder, setProjectOption } from "./domManipulation.js";
 import { dateFormatter } from "./dateHandler.js";
-import { createProject, renameProj, projects as projectsArray, } from "./projects.js";
+import { createProject, renameProj, projects as projectsArray, deleteProj, } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
 import { getTasks } from "./displayTasks.js";
 
@@ -56,7 +56,6 @@ export function sidebarListener() {
     options.forEach(option => { //the 3 bullet points
         let listenEventFlag = false;
         option.addEventListener('click', (e) => {
-            console.log(listenEventFlag)
             if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return; //to make sure all the declaration works
 
             const optionGroup = e.target.children[0];
@@ -91,15 +90,16 @@ export function sidebarListener() {
             renameProject.addEventListener('click', (e) => {
                 const parentElement = e.target.closest('.options').parentElement;
                 const oldProjectTitle = parentElement.querySelector('.name').dataset.value;
+
                 reset();
                 createRenameModal(oldProjectTitle);
 
                 const confirm = document.querySelector('.rename-project-confirm');
                 const cancel = document.querySelector('.rename-project-cancel');
+                const renameBackdrop = document.querySelector('.rename-backdrop');
+                const renameModal = document.querySelector('.rename-modal');
 
                 confirm.addEventListener('click', () => {
-                    const renameBackdrop = document.querySelector('.rename-backdrop');
-                    const renameModal = document.querySelector('.rename-modal');
                     const newProjectTitle = document.querySelector('.new-project-title').value;
 
                     if (newProjectTitle === '') return;
@@ -109,8 +109,6 @@ export function sidebarListener() {
                     renameModal.remove();
                 })
                 cancel.addEventListener('click', () => {
-                    const renameBackdrop = document.querySelector('.rename-backdrop');
-                    const renameModal = document.querySelector('.rename-modal');
                     renameBackdrop.remove();
                     renameModal.remove();
                 })
@@ -118,7 +116,26 @@ export function sidebarListener() {
             })
 
             deleteProject.addEventListener('click', (e) => {
+                const parentElement = e.target.closest('.options').parentElement;
+                const projectTitle = parentElement.querySelector('.name').dataset.value;
+                
                 reset();
+                createDeleteModal(projectTitle);
+
+                const confirm = document.querySelector('.delete-project-confirm');
+                const cancel = document.querySelector('.delete-project-cancel');
+                const deleteBackdrop = document.querySelector('.delete-backdrop');
+                const deleteModal = document.querySelector('.delete-modal');
+
+                confirm.addEventListener('click', () => {
+                    deleteProj(projectTitle);
+                    deleteBackdrop.remove();
+                    deleteModal.remove();
+                })
+                cancel.addEventListener('click', () => {
+                    deleteBackdrop.remove();
+                    deleteModal.remove();
+                })
             })
         })
     })
