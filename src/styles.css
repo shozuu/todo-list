@@ -108,7 +108,8 @@ img {
 
 .add-project-buttons,
 .button-group,
-.rename-buttons {
+.rename-buttons,
+.delete-buttons {
     font-size: var(--font-size-base);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -121,7 +122,9 @@ img {
 .deleteTask-button,
 .editTask-button,
 .rename-project-cancel,
-.rename-project-confirm {
+.rename-project-confirm,
+.delete-project-cancel,
+.delete-project-confirm {
     padding: 5px;
     border-radius: 5px;
     color: #ffffff;
@@ -131,19 +134,22 @@ img {
 
 .add-project-confirm:hover,
 .editTask-button:hover,
-.rename-project-confirm:hover {
+.rename-project-confirm:hover,
+.delete-project-confirm:hover {
     background-color: #218838;
 }
 
 .add-project-cancel,
 .deleteTask-button,
-.rename-project-cancel {
+.rename-project-cancel,
+.delete-project-cancel {
     background-color: #dc3545;
 }
 
 .add-project-cancel:hover,
 .deleteTask-button:hover,
-.rename-project-cancel:hover {
+.rename-project-cancel:hover,
+.delete-project-cancel:hover {
     background-color: #c82333;
 }
 
@@ -234,7 +240,8 @@ img {
 
 .modal-backdrop,
 .transparent-backdrop,
-.rename-backdrop {
+.rename-backdrop,
+.delete-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -248,7 +255,8 @@ img {
 }
 
 .add-modal,
-.rename-modal {
+.rename-modal,
+.delete-modal {
     position: absolute;
     left: 50%;
     top: 50%;
