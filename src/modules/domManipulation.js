@@ -200,3 +200,17 @@ export function createRenameModal(projectTitle) {
     appendElement(renameModal, [h2, input, buttonGroup]);
     appendElement(document.body, [renameBackdrop, renameModal]);
 }
+
+export function createDeleteModal(projectTitle) {
+    const deleteBackdrop = createElement('div', ['delete-backdrop']);
+    const deleteModal = createElement('div', ['delete-modal']);
+    const h2 = createElement('h2', ['h2'], {textContent: 'Delete Project?'});
+    const subtext = createElement('div', ['delete-subtext'], {textContent: `This will delete all the tasks under ${projectTitle}`});
+    const buttonGroup = createElement('div', ['delete-buttons']);
+    const cancel = createElement('div', ['delete-project-cancel'], {textContent: 'Cancel'});
+    const confirm = createElement('div', ['delete-project-confirm'], {textContent: 'Confirm'});
+
+    appendElement(buttonGroup, [cancel, confirm]);
+    appendElement(deleteModal, [h2, subtext, buttonGroup]);
+    appendElement(document.body, [deleteBackdrop, deleteModal]);
+}
