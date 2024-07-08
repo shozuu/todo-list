@@ -1,45 +1,86 @@
+import { getToday, getTom, getWithinMonth } from "./dateHandler";
+
 export const tasks = {
-    'sample task': {
+    'Submit Project Report': {
         taskComplete: false,
-        taskDesc: 'description',
-        taskDue: '2024-07-03',
+        taskDesc: 'Finalize the project report and send it to the manager for review.',
+        taskDue: getToday(),
+        taskPriority: 'High Priority',
+        taskProject: 'Default',
+        taskTitle: 'Submit Project Report'
+    },
+    'Sprint Planning Meeting': {
+        taskComplete: false,
+        taskDesc: 'Conduct a team meeting to discuss the upcoming sprint tasks and timelines.',
+        taskDue: getToday(),
+        taskPriority: 'Medium Priority',
+        taskProject: 'Default',
+        taskTitle: 'Sprint Planning Meeting'
+    },
+    'Client Update and Prototype Delivery': {
+        taskComplete: false,
+        taskDesc: 'Update the client on the project status and deliver the initial prototype.',
+        taskDue: getToday(),
+        taskPriority: 'High Priority',
+        taskProject: 'Default',
+        taskTitle: 'Client Update and Prototype Delivery'
+    },
+    'Quarterly Financial Report': {
+        taskComplete: false,
+        taskDesc: 'Prepare and present the quarterly financial report to the board of directors.',
+        taskDue: getTom(),
+        taskPriority: 'Medium Priority',
+        taskProject: 'Default',
+        taskTitle: 'Quarterly Financial Report'
+    },
+    'Software Tools Training': {
+        taskComplete: false,
+        taskDesc: 'Organize and lead a training session on the new software tools for the team.',
+        taskDue: getTom(),
         taskPriority: 'Low Priority',
         taskProject: 'Default',
-        taskTitle: 'sample task'
+        taskTitle: 'Software Tools Training'
     },
-    'sample task2': {
+    'Marketing Strategy Meeting': {
         taskComplete: false,
-        taskDesc: 'description2',
-        taskDue: '2024-07-03',
-        taskPriority: 'Medium Priority',
-        taskProject: 'Default',
-        taskTitle: 'sample task2'
-    },
-    'sample task3': {
-        taskComplete: false,
-        taskDesc: 'description3',
-        taskDue: '2024-07-04',
+        taskDesc: 'Develop and discuss the marketing strategy for the upcoming product launch.',
+        taskDue: getTom(),
         taskPriority: 'High Priority',
         taskProject: 'Default',
-        taskTitle: 'sample task3'
+        taskTitle: 'Marketing Strategy Meeting'
     },
-    'sample task4': {
-        taskComplete: false,
-        taskDesc: 'description4',
-        taskDue: '2024-07-04',
+    'Code Review Session': {
+        taskComplete: true,
+        taskDesc: 'Review the latest code changes with the development team.',
+        taskDue: getTom(),
         taskPriority: 'Medium Priority',
-        taskProject: 'Sample',
-        taskTitle: 'sample task4'
+        taskProject: 'Default',
+        taskTitle: 'Code Review Session'
     },
-    'sample task5': {
+    'Product Launch Preparation': {
         taskComplete: false,
-        taskDesc: 'description5',
-        taskDue: '2024-07-10',
+        taskDesc: 'Prepare all materials and plans necessary for the product launch event.',
+        taskDue: getWithinMonth(),
         taskPriority: 'High Priority',
-        taskProject: 'Sample',
-        taskTitle: 'sample task5'
+        taskProject: 'Default',
+        taskTitle: 'Product Launch Preparation'
     },
-
+    'Employee Feedback Collection': {
+        taskComplete: false,
+        taskDesc: 'Collect feedback from employees regarding the new work-from-home policy.',
+        taskDue: getWithinMonth(),
+        taskPriority: 'Low Priority',
+        taskProject: 'Default',
+        taskTitle: 'Employee Feedback Collection'
+    },
+    'Website Maintenance': {
+        taskComplete: false,
+        taskDesc: 'Perform routine maintenance and updates on the company website.',
+        taskDue: getWithinMonth(),
+        taskPriority: 'Medium Priority',
+        taskProject: 'Default',
+        taskTitle: 'Website Maintenance'
+    }   
 };
 
 export function createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete) {
@@ -52,5 +93,3 @@ export function createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProje
         taskComplete
     }
 }
-
-//maybe create a function for every retrieval? like for today, tommorrow, all the completed, etc
