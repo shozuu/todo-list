@@ -195,8 +195,10 @@ img {
 
 .task-counter {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 193px));
     gap: 15px;
+    width: 100%;
+    justify-content: center;
 }
 
 .card {
