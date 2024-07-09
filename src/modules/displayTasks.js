@@ -28,110 +28,94 @@ export function getTasks(value) {
 }
 
 function displayTasks(value, type) {
-    const taskView = document.querySelector('.task-view')
+    const taskView = document.querySelector('.task-view');
     taskView.innerHTML = '';
     const tag = createElement('div', ['tag'], {'data-value': value, textContent: value});
-    let taskCounter;
-    let pendingTaskCount = 0;
-    let completedTaskCount = 0;
+    let taskCounter, result;
+    let completeFlag = false;
 
-    //above are task counters
-    const taskContainer = createElement('div', ['task-container']);
-    
     if (type === 'nav') {
         switch (value) {
             case 'Today':
-                Object.keys(tasks).forEach(key => {
-                    if (tasks[key].taskDue === getToday()) {
-                        if (tasks[key].taskComplete) {
-                            completedTaskCount++;
-                            return;
-                        }
-                        appendElement(taskContainer, [createTaskCard(tasks[key])])
-                        pendingTaskCount++;
-                    }
-                }) 
-                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+                result = filterTasks(task => task.taskDue === getToday());
                 break;
             case 'Tomorrow':
-                Object.keys(tasks).forEach(key => {
-                    if (tasks[key].taskDue === getTom()) {
-                        if (tasks[key].taskComplete) {
-                            completedTaskCount++;
-                            return;
-                        }
-                        appendElement(taskContainer, [createTaskCard(tasks[key])])
-                        pendingTaskCount++;
-                    }
-                })
-                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+                result = filterTasks(task => task.taskDue  === getTom());
                 break;
             case 'This Week':
-                Object.keys(tasks).forEach(key => {
-                    if (getWeekRange(tasks[key].taskDue)) {
-                        if (tasks[key].taskComplete) {
-                            completedTaskCount++;
-                            return;
-                        }
-                        appendElement(taskContainer, [createTaskCard(tasks[key])])
-                        pendingTaskCount++;
-                    }
-                })
-                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+                result = filterTasks(task => getWeekRange(task.taskDue));
                 break;
             case 'Planned':
-                Object.keys(tasks).forEach(key => {
-                    if (!getWeekRange(tasks[key].taskDue)) {
-                        if (tasks[key].taskComplete) {
-                            completedTaskCount++;
-                            return;
-                        }
-                        appendElement(taskContainer, [createTaskCard(tasks[key])])
-                        pendingTaskCount++;
-                    }
-                })
-                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+                result = filterTasks(task => !getWeekRange(task.taskDue));
                 break;
             case 'Completed':
-                Object.keys(tasks).forEach(key => { 
-                    if (tasks[key].taskComplete) {
-                        completedTaskCount++;
-                        appendElement(taskContainer, [createTaskCard(tasks[key])])
-                    }
-                })
-                taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+                result = filterTasks(task => task.taskComplete === true, value);
+                completeFlag = true;
                 break;
             default:
                 break;
         }
     }
     else if (type === 'project') {
-        Object.keys(tasks).forEach(key => {
-            if (value === tasks[key].taskProject) {
-                if (tasks[key].taskComplete) {
-                    completedTaskCount++;
-                    return;
-                }
-                appendElement(taskContainer, [createTaskCard(tasks[key])])
-                pendingTaskCount++;
-            }
-        })
-        taskCounter = createTaskCounter(pendingTaskCount, completedTaskCount);
+        result = filterTasks(task => value === task.taskProject); 
     }
-
-    const addTask = createAddTask();
-    appendElement(taskView, [tag, taskCounter, taskContainer, addTask]);
+    
+    taskCounter = createTaskCounter(result.pendingTaskCount, result.completedTaskCount, completeFlag);
+    const addTask = createAddTask(completeFlag);
+    appendElement(taskView, [tag, taskCounter, result.taskContainer, addTask]);
     taskListener();
     setImgs(imgObjects);
-}//fix completed page
+}
 
-function createTaskCounter(pending, complete) {
+function filterTasks(condition, value) {
+    let pendingTaskCount = 0;
+    let completedTaskCount = 0;
+    const taskContainer = createElement('div', ['task-container']);
+
+    Object.keys(tasks).forEach(key => {
+        const task = tasks[key];
+
+        if (condition(task)) { 
+            if (task.taskComplete && value === 'Completed') {
+                completedTaskCount++;
+                appendElement(taskContainer, [createTaskCard(task)])
+                return;
+            }
+            else if (task.taskComplete) {
+                completedTaskCount++;
+                return;
+            }
+            appendElement(taskContainer, [createTaskCard(task)])
+            pendingTaskCount++;
+        }
+    }) 
+
+    // Inside filterTasks, the condition(task) function is defined to apply a specific condition to each task object as we loop through them.
+
+    // When we pass the condition function from displayTasks to filterTasks, it changes the logic or condition that the function evaluates for each task in the tasks object.
+
+    // Each time filterTasks receives a condition from displayTasks, it applies this condition to the current task in the loop, determining whether the task meets the criteria defined by that condition function.
+
+    return {taskContainer, pendingTaskCount, completedTaskCount};
+}
+
+function createTaskCounter(pending, complete, completeFlag) {
     const taskCounter = createElement('div', ['task-counter']);
-    const card = createElement('div', ['card']);
-    const toComplete = createElement('div', ['toComplete'], {textContent: pending});
-    const cardName = createElement('div', ['card-name'], {textContent: 'Tasks to be Completed'});
+    let card, toComplete, cardName;
+
+    if (completeFlag) {
+        card = createElement('div', ['card', 'hidden']);
+        toComplete = createElement('div', ['toComplete', 'hidden'], {textContent: pending});
+        cardName = createElement('div', ['card-name', 'hidden'], {textContent: 'Tasks to be Completed'});
+    } 
+    else {
+        card = createElement('div', ['card']);
+        toComplete = createElement('div', ['toComplete'], {textContent: pending});
+        cardName = createElement('div', ['card-name'], {textContent: 'Tasks to be Completed'});
+    }
+
     const card2 = createElement('div', ['card']);
-    const completed = createElement('div', ['completed'], {textContent: complete}); //should be dynamic value
+    const completed = createElement('div', ['completed'], {textContent: complete});
     const cardName2 = createElement('div', ['card-name'], {textContent: 'Completed Tasks'});
 
     appendElement(card, [toComplete, cardName]);
@@ -159,10 +143,22 @@ function createTaskCard(task) {
     return taskCard;
 }
 
-function createAddTask() {
-    const addTask = createElement('div', ['add-task']);
-    const addTaskContent = createElement('div', [], {textContent: '+ Add Task'});
+function createAddTask(completeFlag) {
+    let addTask;
 
+    if (completeFlag) {
+        addTask = createElement('div', ['add-task', 'hidden']);
+    } 
+    else {
+        addTask = createElement('div', ['add-task']);
+    }
+
+    const addTaskContent = createElement('div', [], {textContent: '+ Add Task'});
     appendElement(addTask, [addTaskContent]);
     return addTask;
 }
+
+//handle count in sidebar
+//handle collapse of sidebar
+//handle media queries 
+//create local storage
