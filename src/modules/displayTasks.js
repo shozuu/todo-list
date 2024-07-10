@@ -10,11 +10,11 @@ export function getTasks(value) {
         if (value === nav) {
             if (value === 'Tomorrow') {
                 setTomorrow();
-                displayTasks(value, 'nav'); 
+                displayTasks(value); 
             }
             else {
                 setDefault();
-                displayTasks(value, 'nav');
+                displayTasks(value);
             }
         }
     });
@@ -22,42 +22,39 @@ export function getTasks(value) {
     projects.forEach(project => {
         if (value === project) {
             setDefault();
-            displayTasks(value, 'project');
+            displayTasks(value);
         }
     });
+    displayTaskCount();
 }
 
-function displayTasks(value, type) {
+function displayTasks(value) {
     const taskView = document.querySelector('.task-view');
     taskView.innerHTML = '';
     const tag = createElement('div', ['tag'], {'data-value': value, textContent: value});
     let taskCounter, result;
     let completeFlag = false;
 
-    if (type === 'nav') {
-        switch (value) {
-            case 'Today':
-                result = filterTasks(task => task.taskDue === getToday());
-                break;
-            case 'Tomorrow':
-                result = filterTasks(task => task.taskDue  === getTom());
-                break;
-            case 'This Week':
-                result = filterTasks(task => getWeekRange(task.taskDue));
-                break;
-            case 'Planned':
-                result = filterTasks(task => !getWeekRange(task.taskDue));
-                break;
-            case 'Completed':
-                result = filterTasks(task => task.taskComplete === true, value);
-                completeFlag = true;
-                break;
-            default:
-                break;
-        }
-    }
-    else if (type === 'project') {
-        result = filterTasks(task => value === task.taskProject); 
+    switch (value) {
+        case 'Today':
+            result = filterTasks(task => task.taskDue === getToday());
+            break;
+        case 'Tomorrow':
+            result = filterTasks(task => task.taskDue  === getTom());
+            break;
+        case 'This Week':
+            result = filterTasks(task => getWeekRange(task.taskDue));
+            break;
+        case 'Planned':
+            result = filterTasks(task => !getWeekRange(task.taskDue));
+            break;
+        case 'Completed':
+            result = filterTasks(task => task.taskComplete === true, value);
+            completeFlag = true;
+            break;
+        default:
+            result = filterTasks(task => value === task.taskProject);
+            break;
     }
     
     taskCounter = createTaskCounter(result.pendingTaskCount, result.completedTaskCount, completeFlag);
@@ -158,7 +155,6 @@ function createAddTask(completeFlag) {
     return addTask;
 }
 
-//handle count in sidebar
 //handle collapse of sidebar
 //handle media queries 
 //create local storage
