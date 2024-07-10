@@ -155,6 +155,65 @@ function createAddTask(completeFlag) {
     return addTask;
 }
 
+function displayTaskCount() {
+    const navTasks = document.querySelectorAll('.nav-tasks');
+    const navProjects = document.querySelectorAll('.nav-projects');
+
+    navTasks.forEach(nav => {
+        const name = nav.querySelector('.name').dataset.value;
+        const count = nav.querySelector('.count');
+
+        if (name === 'Completed') return;
+        setCount(name, count)
+    })
+
+    navProjects.forEach(project => {
+        const name = project.querySelector('.name').dataset.value;
+        const count = project.querySelector('.count');
+        setCount(name, count)
+    })
+}
+
+function setCount(name, count) {
+    let pendingTaskCount;
+
+    switch (name) {
+        case 'Today':
+            pendingTaskCount = taskChecker(task => task.taskDue === getToday());
+            break;
+        case 'Tomorrow':
+            pendingTaskCount = taskChecker(task => task.taskDue === getTom());
+            break;
+        case 'This Week':
+            pendingTaskCount = taskChecker(task => getWeekRange(task.taskDue));
+            break;
+        case 'Planned':
+            pendingTaskCount = taskChecker(task => !getWeekRange(task.taskDue));
+            break;
+        default:
+            pendingTaskCount = taskChecker(task => name === task.taskProject);
+            break;
+    }
+    count.dataset.value = pendingTaskCount;
+    count.textContent = pendingTaskCount;
+}
+
+function taskChecker(condition) {
+    let pendingTaskCount = 0;
+
+    Object.keys(tasks).forEach(key => {
+        const task = tasks[key];
+
+        if (condition(task)) {
+            if (!task.taskComplete) {
+                pendingTaskCount++;
+            }
+        }
+    })
+
+    return pendingTaskCount;
+}
+
 //handle collapse of sidebar
 //handle media queries 
 //create local storage
