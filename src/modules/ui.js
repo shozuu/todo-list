@@ -5,8 +5,8 @@ import { getTasks } from "./displayTasks.js";
 
 export function renderUI() {
     createAddPopup();
-    getTasks('Today');
     renderProjects();
+    getTasks('Today');
 }
 
 function createAddPopup() {
