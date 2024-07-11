@@ -2,8 +2,10 @@ import { createElement, appendElement, renderProjects } from "./domManipulation.
 import { getToday, getMin } from "./dateHandler.js";
 import { projects as projectsArray } from "./projects.js";
 import { getTasks } from "./displayTasks.js";
+import { initializeMediaQuery } from "./mediaQuery.js";
 
 export function renderUI() {
+    initializeMediaQuery();
     createAddPopup();
     renderProjects();
     getTasks('Today');
