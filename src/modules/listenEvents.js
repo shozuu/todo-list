@@ -8,15 +8,47 @@ export const tasksNav = ['Today', 'Tomorrow', 'This Week', 'Planned', 'Completed
 
 export function sidebarListener() {
     const sidebarButton = document.querySelector('.sidebar-icon');
+    const secSidebarButton = document.querySelector('.second-sidebar-icon');
+    const sidebar = document.querySelector('.sidebar');
     const navTasks = document.querySelectorAll('.nav-tasks');
     const navProjects = document.querySelectorAll('.nav-projects');
     const options = document.querySelectorAll('.options');
     const addProject = document.querySelector('.add-project');
     const backdrop = document.querySelector('.transparent-backdrop');
+    const content = document.querySelector('.content');
+    const contentBackdrop = document.querySelector('.content-backdrop');
 
-
+    
     sidebarButton.addEventListener('click', () => {
-        console.log('this is sidebar')
+        const currentWidth = window.innerWidth;
+
+        if (currentWidth < 770) {
+            contentBackdrop.classList.add('hidden');
+        }
+
+        sidebar.classList.add('hidden');
+        content.classList.remove('inactive');
+        secSidebarButton.classList.remove('hidden');
+    })
+
+    secSidebarButton.addEventListener('click', () => {
+        const currentWidth = window.innerWidth;
+        
+        if (currentWidth > 770) {
+            content.classList.add('inactive');
+        }
+        else { //if less than 770
+            contentBackdrop.classList.remove('hidden');
+        }
+        
+        sidebar.classList.remove('hidden');
+        secSidebarButton.classList.add('hidden');
+    })
+
+    contentBackdrop.addEventListener('click', () => {
+        sidebar.classList.add('hidden');
+        contentBackdrop.classList.add('hidden');
+        secSidebarButton.classList.remove('hidden');
     })
 
     navTasks.forEach(navTask => {
