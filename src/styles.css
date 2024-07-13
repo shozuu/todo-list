@@ -32,6 +32,7 @@ body {
     top: 0;
     left: 0;
     overflow-y: auto;
+    overflow-x: visible;
     z-index: 2;
 }
 
@@ -171,7 +172,8 @@ img {
 .nav-tasks:hover,
 .nav-projects:hover,
 .add-project:hover,
-.selected {
+.selected,
+.on-view {
     background-color: var(--primary-color);
     border-radius: 10px;
     cursor: pointer;
@@ -183,7 +185,8 @@ img {
 }
 
 .inactive,
-.content-backdrop {
+.content-backdrop,
+.transparent-backdrop {
     margin-left: 270px;
 }
 
@@ -268,6 +271,7 @@ img {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.542);
+    z-index: 98;
 }
 
 .transparent-backdrop {
@@ -288,6 +292,7 @@ img {
     flex-direction: column;
     gap: 40px;
     text-align: center;
+    z-index: 999;
 }
 
 form {
@@ -433,11 +438,12 @@ select {
 .options {
     position: absolute;
     right: 0;
-    margin-right: 6px;
+    margin-right: 10px;
 }
 
 .option-group {
     position: absolute;
+    right: -10px;
     background-color: var(--secondary-color);
     padding: 10px 0px;
     width: 100px;
@@ -452,5 +458,21 @@ select {
 
 .rename-project:hover,
 .delete-project:hover {
+    background-color: var(--tertiary-color);
+}
+
+::-webkit-scrollbar {
+    width: 10px;  
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--sidebar-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
     background-color: var(--tertiary-color);
 }

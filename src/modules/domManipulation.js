@@ -1,4 +1,5 @@
 import { dateFormatter, getToday, getTom, getMin } from "./dateHandler";
+import { displayTaskCount } from "./displayTasks";
 import { setImgs, imgObjects } from "./imageHandler";
 import { sidebarListener } from "./listenEvents";
 import { projects as projectsArray } from "./projects";
@@ -41,13 +42,28 @@ export function highlightSelected(value) {
     const navTasks = document.querySelectorAll('.nav-tasks');
     const navProjects = document.querySelectorAll('.nav-projects');
 
-    navTasks.forEach(nav => {
+    navTasks.forEach(nav => { //remove existing selected
         nav.classList.remove('selected');
     })
-    navProjects.forEach(project => {
+    navProjects.forEach(project => { //remove existing selected
         project.classList.remove('selected');
     })
+
     value.classList.add('selected');
+
+    navProjects.forEach(project => {
+        if (project.classList.contains('selected')) {
+            project.querySelector('.options').classList.remove('hidden');
+            project.querySelector('.count').classList.add('hidden');
+            return;
+        }
+
+        project.querySelector('.options').classList.add('hidden');
+        project.querySelector('.option-group').classList.add('hidden');
+        project.querySelector('.count').classList.remove('hidden');
+        project.classList.remove('on-view');
+        document.querySelector('.transparent-backdrop').classList.add('hidden');
+    })
 }
 
 export function setDuePlaceholder(value) {
@@ -112,6 +128,7 @@ export function renderProjects() {
 
     sidebarListener();
     setImgs(imgObjects);
+    displayTaskCount();
 }
 
 function updateProjectOptions() { //for projects in the add modal

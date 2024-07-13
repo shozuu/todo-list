@@ -155,7 +155,7 @@ function createAddTask(completeFlag) {
     return addTask;
 }
 
-function displayTaskCount() {
+export function displayTaskCount() {
     const navTasks = document.querySelectorAll('.nav-tasks');
     const navProjects = document.querySelectorAll('.nav-projects');
 
@@ -214,6 +214,4 @@ function taskChecker(condition) {
     return pendingTaskCount;
 }
 
-//handle collapse of sidebar
-//handle media queries 
 //create local storage

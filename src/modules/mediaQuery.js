@@ -10,6 +10,7 @@ function handleMediaQueryChange(event) {
     const contentBackdrop = document.querySelector('.content-backdrop');
     const sidebar = document.querySelector('.sidebar');
     const secSidebarButton = document.querySelector('.second-sidebar-icon');
+    const transparentBackdrop = document.querySelector('.transparent-backdrop');
 
     if (event.matches) { //more than 770px
         if (!sidebar.classList.contains('hidden')) { //if sidebar is active
@@ -21,6 +22,7 @@ function handleMediaQueryChange(event) {
         content.classList.remove('inactive');
         sidebar.classList.add('hidden');
         secSidebarButton.classList.remove('hidden');
+        transparentBackdrop.classList.add('hidden'); //need also to reset opened options
     }
 }
 

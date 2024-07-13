@@ -63,23 +63,27 @@ export function sidebarListener() {
         project.addEventListener('click', (e) => {
             if (e.target.classList.contains('option-group') || e.target.classList.contains('options') || e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project')) return;
 
-            highlightSelected(e.currentTarget)
+            highlightSelected(e.currentTarget);
             if(e.target.classList.contains('options')) return;
             const projectIndex = Array.from(navProjects).indexOf(e.currentTarget)
             getTasks(projectsArray[projectIndex]);
             setProjectOption(projectsArray[projectIndex]);
         })
         project.addEventListener('mouseenter', (e) => {
+            if (e.target.classList.contains('selected')) return;
             const options = e.target.querySelector('.options');
             const count = e.target.querySelector('.count');
+
             options.classList.remove('hidden');
             count.classList.add('hidden');
         })
-        project.addEventListener('mouseleave', (e) => {//having a modal appear considers as mouseleave, thus, triggering this
-            if (!backdrop.classList.contains('hidden')) return;
-
+        project.addEventListener('mouseleave', (e) => {
+            if (e.target.classList.contains('selected')) return;
             const options = e.target.querySelector('.options');
             const count = e.target.querySelector('.count');
+            
+            if (!e.target.querySelector('.option-group').classList.contains('hidden')) return;
+
             options.classList.add('hidden');
             count.classList.remove('hidden');
         })
@@ -88,36 +92,71 @@ export function sidebarListener() {
     options.forEach(option => { //the 3 bullet points
         let listenEventFlag = false;
         option.addEventListener('click', (e) => {
-            if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return; //to make sure all the declaration works
+            if (e.target.classList.contains('rename-project') || e.target.classList.contains('delete-project') || e.target.classList.contains('option-group')) return; 
+            //to make sure all the declaration works
+
+            const currentOptionIndex = Array.from(options).indexOf(e.target);
+
+            Array.from(options).forEach((option, index) => {
+                if (currentOptionIndex === index) return; 
+                //this will skip when option is clicked 2nd time to close
+                
+                if (option.closest('.nav-projects').classList.contains('selected')) {
+                    //this will prevent hiding the option icon
+                    option.querySelector('.option-group').classList.add('hidden');
+                    return;
+                }
+
+                if (!option.classList.contains('hidden')) {
+                    //closes all the opened optionGroup of other projects except the current target
+                    option.classList.add('hidden');
+                    option.querySelector('.option-group').classList.add('hidden');
+                    option.parentElement.querySelector('.count').classList.remove('hidden');
+                    option.parentElement.classList.remove('on-view');
+                }
+            });
 
             const optionGroup = e.target.children[0];
             const renameProject = e.target.querySelector('.rename-project');
             const deleteProject = e.target.querySelector('.delete-project');
 
-            optionGroup.classList.remove('hidden'); //contains clicked nav-projects' rename and delete
+            e.target.closest('.nav-projects').classList.add('on-view');
+
+            if (!optionGroup.classList.contains('hidden')) { //hides the option on 2nd click
+                e.target.closest('.nav-projects').classList.remove('on-view')
+                optionGroup.classList.add('hidden');
+                backdrop.classList.add('hidden');
+                return;
+            }
+
+            optionGroup.classList.remove('hidden'); //contains rename/delete of current target
             backdrop.classList.remove('hidden');
 
             function reset() {
-                const options = document.querySelectorAll('.options');
-                const counts = document.querySelectorAll('.count');
-
-                options.forEach(option => {
-                    option.classList.add('hidden');
-                });
-                counts.forEach(count => {
-                    count.classList.remove('hidden');
-                });
+                navProjects.forEach(project => {
+                    if (project.classList.contains('selected')) {
+                        return;
+                    }
+                    project.querySelector('.options').classList.add('hidden');
+                    project.querySelector('.count').classList.remove('hidden');
+                })
 
                 optionGroup.classList.add('hidden');
                 backdrop.classList.add('hidden');
+                e.target.closest('.nav-projects').classList.remove('on-view');
             }
-
+            
             if (listenEventFlag) return; //this prevents duplicating of 
             listenEventFlag = true; //event listeners to the elements below
 
             backdrop.addEventListener('click', () => {
                 reset();
-            })
+                if (!contentBackdrop.classList.contains('hidden')) {
+                    contentBackdrop.classList.add('hidden');
+                    sidebar.classList.add('hidden');
+                    secSidebarButton.classList.remove('hidden');
+                }
+            });
 
             renameProject.addEventListener('click', (e) => {
                 const parentElement = e.target.closest('.options').parentElement;
