@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeepTrack</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-group">
+                <div class="sidebar-icon">
+                    <img src="" alt="sidebar" class="sidebarImg">
+                </div>
+                <div class="task-group">
+                    <div class="group-title">Tasks</div>
+                    <div class="nav-tasks selected">
+                        <img src="" alt="today" class="todayImg">
+                        <div class="name" data-value="Today">Today</div>
+                        <div class="count" data-value=0>0</div>
+                    </div>
+                    <div class="nav-tasks">
+                        <img src="" alt="tomorrow" class="tomImg">
+                        <div class="name" data-value="Tomorrow">Tomorrow</div>
+                        <div class="count" data-value=0>0</div>
+                    </div>
+                    <div class="nav-tasks">
+                        <img src="" alt="This week" class="weekImg">
+                        <div class="name" data-value="This Week">This Week</div>
+                        <div class="count" data-value=0>0</div>
+                    </div>
+                    <div class="nav-tasks">
+                        <img src="" alt="Planned" class="plannedImg">
+                        <div class="name" data-value="Planned">Planned</div>
+                        <div class="count" data-value=0>0</div>
+                    </div>
+                    <div class="nav-tasks">
+                        <img src="" alt="Completed" class="completedImg">
+                        <div class="name" data-value="Completed">Completed</div>
+                    </div>
+                </div>
+                <div class="project-group">
+                    <div class="group-title">Projects</div>
+                    <div class="add-project-popup hidden">
+                        <input type="text" name="project-title" class="project-title">
+                        <div class="add-project-buttons">
+                            <div class="add-project-cancel">Cancel</div>
+                            <div class="add-project-confirm">Add</div>
+                        </div>
+                    </div>
+                    <div class="add-project">
+                        <img src="" alt="Add" class="addImg">
+                        <div class="name">Add Project</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-backdrop hidden"></div>
+        <div class="content">
+            <div class="header">
+                <div class="second-sidebar-icon hidden">
+                    <img src="" alt="sidebar" class="sidebarImg">
+                </div>
+                <img src="" alt="logo" class="logoImg">
+                <div class="keepTrack">KeepTrack</div>
+            </div>
+            <div class="task-view">
+            </div>
+        </div>
+        <div class="transparent-backdrop hidden"></div>
+    </div>
+</body>
+</html>

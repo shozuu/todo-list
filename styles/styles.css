@@ -1,0 +1,478 @@
+:root {
+    --primary-color: #212121;
+    --secondary-color: #2F2F2F;
+    --tertiary-color: #494949;
+    --sidebar-color: #171717;
+    --primary-text: #B4B4B4;
+    --secondary-text: #ECECEC;
+    --font-size-base: 14px;
+}  
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-text);
+}
+
+.main-container {
+    display: flex;
+}
+
+.sidebar {
+    background-color: var(--sidebar-color);
+    min-width: 270px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: visible;
+    z-index: 2;
+}
+
+.sidebar-group {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.sidebar-icon,
+.second-sidebar-icon {
+    margin-left: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+}
+
+.sidebar-icon:hover,
+.second-sidebar-icon:hover {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.second-sidebar-icon:hover {
+    background-color: #2E2E2E;
+}
+
+.task-group,
+.project-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.group-title {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.nav-tasks,
+.nav-projects,
+.add-project,
+.modal-group {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: var(--font-size-base);
+    user-select: none;
+    position: relative;
+}
+
+.count {
+    margin-left: auto;
+}
+
+.add-project-popup {
+    width: 230px;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.add-project-popup input,
+.rename-modal input {
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+.add-project-buttons,
+.button-group,
+.rename-buttons,
+.delete-buttons {
+    font-size: var(--font-size-base);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    text-align: center;
+}
+
+.add-project-confirm,
+.add-project-cancel,
+.deleteTask-button,
+.editTask-button,
+.rename-project-cancel,
+.rename-project-confirm,
+.delete-project-cancel,
+.delete-project-confirm {
+    padding: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #28a745;
+}
+
+.add-project-confirm:hover,
+.editTask-button:hover,
+.rename-project-confirm:hover,
+.delete-project-confirm:hover {
+    background-color: #218838;
+}
+
+.add-project-cancel,
+.deleteTask-button,
+.rename-project-cancel,
+.delete-project-cancel {
+    background-color: #dc3545;
+}
+
+.add-project-cancel:hover,
+.deleteTask-button:hover,
+.rename-project-cancel:hover,
+.delete-project-cancel:hover {
+    background-color: #c82333;
+}
+
+.addIcon {
+    font-size: 25px;
+}
+
+.nav-tasks:hover,
+.nav-projects:hover,
+.add-project:hover,
+.selected,
+.on-view {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.content {
+    padding: 20px;
+    flex: 1;
+}
+
+.inactive,
+.content-backdrop,
+.transparent-backdrop {
+    margin-left: 270px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    height: 35px;
+}
+
+.task-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.tag {
+    color: var(--primary-text);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.task-counter {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 193px));
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+}
+
+.card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.toComplete, 
+.completed {
+    font-size: 25px;
+}
+
+.name,
+.task-view {
+    color: var(--secondary-text);
+    font-size: var(--font-size-base);
+}
+
+.add-task,
+.addModal-button {
+    font-family: inherit;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-text);
+    padding: 8px 40px;
+    border: 2px solid var(--secondary-color);;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-task:hover,
+.addModal-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.modal-backdrop,
+.transparent-backdrop,
+.rename-backdrop,
+.delete-backdrop,
+.content-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.542);
+    z-index: 98;
+}
+
+.transparent-backdrop {
+    background-color: transparent;
+}
+
+.add-modal,
+.rename-modal,
+.delete-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 30px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+    z-index: 999;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+}
+
+.group textarea {
+    background-color: var(--primary-color);
+    font-family: inherit;
+    color: var(--secondary-text);
+    font-size: var(--font-size-base);
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+.group textarea:nth-child(1) {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.group textarea:nth-child(2) {
+    height: 100px;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-group {
+    padding: 10px 0;
+}
+
+.task-priority,
+.due-date,
+.projects {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.hidden { /* always last */
+    display: none;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    text-align: right;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--primary-text);
+    border: none;
+}
+
+.due-date {
+    position: relative;
+}
+
+.date-picker {
+    position: absolute;
+    right: 0;
+    top: 0;
+    visibility: hidden;
+}
+
+.task-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.taskCard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.taskCard-due {
+    margin-left: auto;
+}
+
+.taskCard-checkbox {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #B4B4B4;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox {
+    border: none;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #218838;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.taskCard-checkbox:checked + .custom-checkbox::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.options {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+.option-group {
+    position: absolute;
+    right: -10px;
+    background-color: var(--secondary-color);
+    padding: 10px 0px;
+    width: 100px;
+    border-radius: 8px;
+    z-index: 99;
+}
+
+.rename-project,
+.delete-project {
+    padding: 0px 10px;
+}
+
+.rename-project:hover,
+.delete-project:hover {
+    background-color: var(--tertiary-color);
+}
+
+::-webkit-scrollbar {
+    width: 10px;  
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--sidebar-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--tertiary-color);
+}
