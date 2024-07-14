@@ -130,8 +130,17 @@ export function sidebarListener() {
             }
 
             optionGroup.classList.remove('hidden'); //contains rename/delete of current target
+            updateOptionGroupPosition(); //initial position
             backdrop.classList.remove('hidden');
 
+            function updateOptionGroupPosition() {
+                const option = e.target.getBoundingClientRect();
+                //this returns an object containing the position of ••• relative to the viewport
+
+                optionGroup.style.top = `${option.bottom + window.scrollY}px`;
+                optionGroup.style.left = `${option.left + window.scrollX}px`;
+            }
+            
             function reset() {
                 navProjects.forEach(project => {
                     if (project.classList.contains('selected')) {
@@ -148,6 +157,8 @@ export function sidebarListener() {
             
             if (listenEventFlag) return; //this prevents duplicating of 
             listenEventFlag = true; //event listeners to the elements below
+
+            sidebar.addEventListener('scroll', updateOptionGroupPosition);
 
             backdrop.addEventListener('click', () => {
                 reset();
