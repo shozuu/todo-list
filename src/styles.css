@@ -5,7 +5,7 @@
     --sidebar-color: #171717;
     --primary-text: #B4B4B4;
     --secondary-text: #ECECEC;
-    --font-size-base: 14px;
+    --font-size-base: 12px;
 }  
 
 * {
@@ -196,7 +196,7 @@ img {
     gap: 10px;
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     height: 35px;
 }
 
@@ -207,15 +207,19 @@ img {
     gap: 30px;
 }
 
+.keepTrack {
+    font-size: 16px;
+}
+
 .tag {
     color: var(--primary-text);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .task-counter {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 193px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
     gap: 15px;
     width: 100%;
     justify-content: center;
@@ -276,6 +280,11 @@ img {
 
 .transparent-backdrop {
     background-color: transparent;
+}
+
+.transparent-backdrop, 
+.content-backdrop {
+    z-index: 1;
 }
 
 .add-modal,
@@ -397,8 +406,9 @@ select {
 }
 
 .custom-checkbox {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
     border-radius: 50%;
     border: 1px solid #B4B4B4;
     display: inline-block;
@@ -442,11 +452,11 @@ select {
 }
 
 .option-group {
-    position: absolute;
-    /* right: -10px; */
+    position: fixed;
     background-color: var(--secondary-color);
     padding: 10px 0px;
     width: 100px;
+    border: 1px solid #414040;
     border-radius: 8px;
     z-index: 99;
 }

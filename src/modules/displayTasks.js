@@ -103,12 +103,12 @@ function createTaskCounter(pending, complete, completeFlag) {
     if (completeFlag) {
         card = createElement('div', ['card', 'hidden']);
         toComplete = createElement('div', ['toComplete', 'hidden'], {textContent: pending});
-        cardName = createElement('div', ['card-name', 'hidden'], {textContent: 'Tasks to be Completed'});
+        cardName = createElement('div', ['card-name', 'hidden'], {textContent: 'Pending Tasks'});
     } 
     else {
         card = createElement('div', ['card']);
         toComplete = createElement('div', ['toComplete'], {textContent: pending});
-        cardName = createElement('div', ['card-name'], {textContent: 'Tasks to be Completed'});
+        cardName = createElement('div', ['card-name'], {textContent: 'Pending Tasks'});
     }
 
     const card2 = createElement('div', ['card']);
@@ -213,5 +213,3 @@ function taskChecker(condition) {
 
     return pendingTaskCount;
 }
-
-//create local storage
