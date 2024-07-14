@@ -103,17 +103,17 @@ function createTaskCounter(pending, complete, completeFlag) {
     if (completeFlag) {
         card = createElement('div', ['card', 'hidden']);
         toComplete = createElement('div', ['toComplete', 'hidden'], {textContent: pending});
-        cardName = createElement('div', ['card-name', 'hidden'], {textContent: 'Pending Tasks'});
+        cardName = createElement('div', ['card-name', 'hidden'], {textContent: 'Pending'});
     } 
     else {
         card = createElement('div', ['card']);
         toComplete = createElement('div', ['toComplete'], {textContent: pending});
-        cardName = createElement('div', ['card-name'], {textContent: 'Pending Tasks'});
+        cardName = createElement('div', ['card-name'], {textContent: 'Pending'});
     }
 
     const card2 = createElement('div', ['card']);
     const completed = createElement('div', ['completed'], {textContent: complete});
-    const cardName2 = createElement('div', ['card-name'], {textContent: 'Completed Tasks'});
+    const cardName2 = createElement('div', ['card-name'], {textContent: 'Completed'});
 
     appendElement(card, [toComplete, cardName]);
     appendElement(card2, [completed, cardName2]);
