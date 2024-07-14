@@ -219,7 +219,7 @@ img {
 
 .task-counter {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
     gap: 15px;
     width: 100%;
     justify-content: center;
