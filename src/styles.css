@@ -443,7 +443,7 @@ select {
 
 .option-group {
     position: absolute;
-    right: -10px;
+    /* right: -10px; */
     background-color: var(--secondary-color);
     padding: 10px 0px;
     width: 100px;

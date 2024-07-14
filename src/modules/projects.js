@@ -2,7 +2,7 @@ import { getTasks } from "./displayTasks";
 import { highlightSelected, renderProjects } from "./domManipulation";
 import { tasks } from "./tasks";
 
-export const projects = ['Default']
+export const projects = ['Default', 'Test1', 'Test2', 'Test3', 'Test4', 'Test5', 'Test6', 'Test7', 'Test8', 'Test9', 'Test10']
 
 export function createProject(projectTitle) {
     if (!projectTitle) return;
