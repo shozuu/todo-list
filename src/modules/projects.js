@@ -1,5 +1,6 @@
 import { getTasks } from "./displayTasks";
 import { highlightSelected, renderProjects } from "./domManipulation";
+import { storeData } from "./localStorage";
 import { tasks } from "./tasks";
 
 export const projects = ['Default']
@@ -18,6 +19,7 @@ export function createProject(projectTitle) {
 
     if (flag) return;
     projects.push(projectTitle);
+    storeData('storedProjects', projects);
     renderProjects();
 }
 
@@ -42,6 +44,7 @@ export function renameProj(oldProjectTitle, newProjectTitle) {
         }
     })
 
+    storeData('storedProjects', projects);
     renderProjects();
     getTasks(newProjectTitle); 
 
@@ -69,6 +72,7 @@ export function deleteProj(projectTitle) {
             projects.splice(projectTitleIndex, 1);
         }
     });
+    storeData('storedProjects', projects);
     renderProjects();
     getTasks('Today');
 

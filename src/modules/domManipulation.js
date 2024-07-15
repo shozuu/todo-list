@@ -3,6 +3,8 @@ import { displayTaskCount } from "./displayTasks";
 import { setImgs, imgObjects } from "./imageHandler";
 import { sidebarListener } from "./listenEvents";
 import { projects as projectsArray } from "./projects";
+import { retrieveProjects } from "./localStorage";
+let deserializedProjects;
 
 export function createElement(elementType, elementClass = [], elementAttribute = {}) {
     const element = document.createElement(elementType);
@@ -101,6 +103,8 @@ export function renderProjects() {
     navProjects.forEach(projects => { //clears the projectGroup in the sidebar which also removes its eventListeners
         projects.remove();
     });
+
+    deserializedProjects = retrieveProjects();
 
     projectsArray.forEach(project => { //create the projectGroup with new added project
         const navProjects = createElement('div', ['nav-projects']);
@@ -202,6 +206,7 @@ export function resetAddModal(clone) {
     addModal.innerHTML = '';
 
     appendElement(addModal, [clone.clonedH2, clone.clonedForm]);
+    updateProjectOptions();
 }
 
 export function createRenameModal(projectTitle) {

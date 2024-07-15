@@ -3,6 +3,7 @@ import { dateFormatter } from "./dateHandler.js";
 import { createProject, renameProj, projects as projectsArray, deleteProj, } from "./projects.js";
 import { tasks, createTask } from "./tasks.js";
 import { getTasks } from "./displayTasks.js";
+import { storeData } from "./localStorage.js";
 
 export const tasksNav = ['Today', 'Tomorrow', 'This Week', 'Planned', 'Completed'];
 
@@ -295,6 +296,7 @@ export function taskListener() {
 
         const task = createTask(taskTitle, taskDesc, taskPriority, taskDue, taskProject, taskComplete);
         tasks[task.taskTitle] = task;
+        storeData('storedTasks', tasks);
         form.reset();
         getTasks(document.querySelector('.tag').dataset.value);
 
@@ -327,6 +329,7 @@ export function taskListener() {
                 tasks[value].taskComplete = false;
                 checkbox.checked = false;
             }
+            storeData('storedTasks', tasks);
             setTimeout(() => {
                 getTasks(document.querySelector('.tag').dataset.value);
             }, 300);
@@ -374,7 +377,7 @@ export function taskListener() {
                 else {
                     tasks[task.taskTitle] = task;
                 }
-
+                storeData('storedTasks', tasks);
                 resetAddModal(clone);
                 modalBackdrop.classList.add('hidden');
                 addModal.classList.add('hidden');
@@ -383,6 +386,7 @@ export function taskListener() {
 
             deleteButton.addEventListener('click', () => {
                 delete tasks[currentTask];
+                storeData('storedTasks', tasks);
                 resetAddModal(clone);
                 modalBackdrop.classList.add('hidden');
                 addModal.classList.add('hidden');

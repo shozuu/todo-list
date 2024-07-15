@@ -2,8 +2,10 @@ import { dateFormatter, getToday, getTom, getWeekRange } from "./dateHandler";
 import { appendElement, createElement, setDefault, setTomorrow } from "./domManipulation";
 import { imgObjects, setImgs } from "./imageHandler";
 import { taskListener, tasksNav } from "./listenEvents";
+import { retrieveTasks } from "./localStorage";
 import { projects } from "./projects";
 import { tasks } from "./tasks";
+let deserializedTasks;
 
 export function getTasks(value) {
     tasksNav.forEach(nav => {
@@ -34,6 +36,8 @@ function displayTasks(value) {
     const tag = createElement('div', ['tag'], {'data-value': value, textContent: value});
     let taskCounter, result;
     let completeFlag = false;
+
+    deserializedTasks = retrieveTasks();
 
     switch (value) {
         case 'Today':
