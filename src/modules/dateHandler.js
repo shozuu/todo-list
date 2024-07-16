@@ -1,4 +1,4 @@
-import { format, add, startOfWeek, endOfWeek, parse, isWithinInterval, differenceInDays, addDays, startOfMonth, endOfMonth } from 'date-fns';
+import { format, add, startOfWeek, endOfWeek, parse, isWithinInterval, differenceInDays, addDays, startOfMonth, endOfMonth, addWeeks } from 'date-fns';
 
 export function dateFormatter(value) {
     return format(value, 'EEE, dd MMM');
@@ -38,13 +38,12 @@ export function getWeekRange(value) {
 export function getWithinMonth() {
     const today = new Date();
 
-    const monthStart = startOfMonth(today); 
-    const monthEnd = endOfMonth(today); 
+    const startNextWeek = addWeeks(startOfWeek(today), 1);
+    const monthEnd = endOfMonth(today);
+    
+    const randomTime = startNextWeek.getTime() + Math.random() * (monthEnd.getTime() - startNextWeek.getTime());
 
-    const daysDiff = differenceInDays(monthStart, monthEnd); //results in # of days in month - 1
-    const randomDay = Math.floor(Math.random() * (daysDiff + 1)); //generates a whole, rounded off number between 0 and # of days in month
-
-    const monthDate = addDays(monthStart, randomDay); //adds the randomDay to the weekStart 
-
-    return format(monthDate, 'yyyy-MM-dd');
+    const randomDate = new Date(randomTime);
+    
+    return format(randomDate, 'yyyy-MM-dd');
 }
