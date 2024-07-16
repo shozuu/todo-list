@@ -183,11 +183,18 @@ export function displayModal(task) {
     const taskDue = document.querySelector('.date-picker');
     const taskProject = document.querySelector('.projects');
 
-    h2.innerText = 'Edit Task';
+    h2.textContent = 'Edit Task';
+
     taskTitle.value = task.taskTitle;
+    taskTitle.textContent = task.taskTitle;
+
     taskDesc.value = task.taskDesc;
+    taskDesc.textContent = task.taskDesc;
+
     taskPriority.value = task.taskPriority;
+
     taskDue.value = task.taskDue;
+    setDuePlaceholder(dateFormatter(task.taskDue));
     taskProject.value = task.taskProject;
 }
 
